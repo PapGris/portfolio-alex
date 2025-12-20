@@ -1,0 +1,64 @@
+/* src/app/components/about/about.scss */
+
+// Pour s'assurer que la section a de l'espace
+:host {
+    display: block;
+    padding: 5.5rem 0;
+    background-color: var(--bg-color); // Change selon le thème
+}
+
+.section-title {
+    margin-top: 0; // Reset car géré par le padding du host
+    font-size: 3.8rem;
+    color: var(--text-main);
+    
+    @media screen and (min-width: 750px) {
+        font-size: 4.8rem;
+        margin-top: 2.8rem;
+    }
+}
+
+h3 {
+    font-size: 2.3rem;
+    color: var(--text-main);
+    margin-bottom: 1.5rem;
+}
+
+p {
+    font-family: "Poppins", sans-serif;
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+// L'image avec ton style spécifique (bordure arrondie bizarre)
+img {
+    border-radius: 25% 25% 25% 25%;
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.5s ease;
+
+    &:hover {
+        transform: scale(1.02); // Petit effet au survol
+        box-shadow: 0 10px 20px var(--shadow-color);
+    }
+
+    @media screen and (min-width: 750px) {
+        margin-top: 2rem;
+    }
+}
+
+// Grille et disposition
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem; // Espace entre les colonnes
+}
+
+.grid__item {
+    width: 100%;
+    
+    @media screen and (min-width: 750px) {
+        max-width: 45%; // Un peu moins de 50% pour laisser de l'air avec le gap
+    }
+}

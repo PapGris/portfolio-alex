@@ -1,0 +1,132 @@
+.header {
+    background-color: var(--nav-bg);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: background-color 0.3s;
+
+    .logo {
+        font-family: "Poppins", sans-serif;
+        font-size: 2rem;
+        letter-spacing: 2px;
+        color: var(--text-main);
+    }
+
+    li {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 0.5rem;
+    }
+
+    a {
+        color: var(--text-main);
+        &:hover {
+            color: var(--text-accent);
+            transition: all 0.5s;
+        }
+    }
+
+    .right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .socials {
+        display: flex;
+        
+        /* Masquer les réseaux sociaux sur mobile si l'écran est trop petit pour éviter l'encombrement */
+        @media screen and (max-width: 450px) {
+            display: none;
+        }
+
+        .icon {
+            height: 18px;
+            fill: var(--text-main);
+            transform: translateY(3.5px);
+            &:hover {
+                fill: var(--text-accent);
+                transition: all 1s;
+            }
+        }
+    }
+}
+
+/* --- BURGER MENU STYLE --- */
+.burger {
+    background: none;
+    border: none;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    position: relative;
+    margin-left: 1rem;
+
+    .bar {
+        display: block;
+        width: 22px;
+        height: 3px;
+        background-color: var(--text-main);
+        transition: all 0.3s;
+
+        &::before, &::after {
+            display: block;
+            content: "";
+            width: 22px;
+            height: 3px;
+            background-color: var(--text-main);
+            position: absolute;
+            transition: all 0.3s;
+        }
+
+        &::before { transform: translateY(-8px); }
+        &::after { transform: translateY(8px); }
+    }
+
+    // Animation de la croix quand actif
+    &.active .bar {
+        background-color: transparent; // La barre du milieu disparait
+        &::before { transform: rotate(45deg); }
+        &::after { transform: rotate(-45deg); }
+    }
+    
+    // Cacher le burger sur desktop
+    @media screen and (min-width: 750px) {
+        display: none;
+    }
+}
+
+/* --- NAVIGATION RESPONSIVE --- */
+@media screen and (min-width: 750px) {
+    .navbar { display: flex; }
+}
+
+@media screen and (max-width: 749px) {
+    .navbar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 55px; /* Hauteur du header */
+        left: 110%; /* Caché à droite */
+        width: 100%;
+        height: calc(100vh - 55px);
+        background: var(--bg-secondary); /* Fond du menu mobile */
+        opacity: 0;
+        transition: all 0.4s ease-out;
+
+        &.show-nav {
+            left: 0;
+            opacity: 1;
+        }
+
+        a {
+            display: block;
+            font-size: 2rem;
+            padding: 2rem;
+            &:hover { transform: scale(1.1); }
+        }
+    }
+}

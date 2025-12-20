@@ -1,0 +1,51 @@
+<div class="portfolio-container">
+    <div class="container">
+        
+        <div class="section-header">
+            <h2 class="section-title">Portfolio</h2>
+        </div>
+
+        <ul class="portfolio-filters list-unstyled grid">
+            <li class="grid__item filter-item">
+                <a (click)="setFilter('all')" [class.active]="currentFilter === 'all'">Tous les projets</a>
+            </li>
+            <li class="grid__item filter-item">
+                <a (click)="setFilter('web')" [class.active]="currentFilter === 'web'">Développement Web</a>
+            </li>
+            <li class="grid__item filter-item">
+                <a (click)="setFilter('design')" [class.active]="currentFilter === 'design'">Graphisme</a>
+            </li>
+            <li class="grid__item filter-item">
+                <a (click)="setFilter('life')" [class.active]="currentFilter === 'life'">Mon Parcours</a>
+            </li>
+        </ul>
+
+        <div class="grid projects-grid">
+            
+            <div class="grid__item project-item" *ngFor="let project of filteredProjects">
+                
+                <div class="card">
+                    <img [src]="project.image" [alt]="project.title" class="card__image">
+                    
+                    <div class="card__inner">
+                        <h3 class="card__title">{{ project.title }}</h3>
+                        <p class="category">{{ project.categoryDisplay }}</p>
+                    </div>
+                    
+                    <div class="card__overlay">
+                        <a (click)="openModal(project)" class="card__link">+</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<app-modal 
+    [project]="selectedProject" 
+    [isOpen]="isModalOpen" 
+    (close)="closeModal()">
+</app-modal>

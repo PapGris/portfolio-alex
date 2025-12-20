@@ -1,0 +1,17 @@
+<div class="container">      
+    <div class="grid">
+        
+        <div class="grid__item image-container">
+            <img [src]="info.imgProfile" alt="photo Alexandre Blaizot" width="320" height="350">
+        </div>
+
+        <div class="grid__item text-container">
+            <h2 class="section-title">{{ info.title }}</h2>
+            <h3>{{ info.subtitle }}</h3>
+            
+            <p [innerHTML]="info.paragraph1"></p>
+            <p [innerHTML]="info.paragraph2"></p>
+        </div>
+        
+    </div>
+</div>

@@ -1,0 +1,152 @@
+.portfolio-container {
+    padding: 5.5rem 0;
+    background: var(--bg-tertiary); // Fond beige/gris
+    color: var(--text-main);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 3.8rem;
+    margin-bottom: 2rem;
+    @media screen and (min-width: 750px) {
+        font-size: 4.8rem;
+    }
+}
+
+/* --- FILTRES --- */
+.portfolio-filters {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+    padding: 0;
+    list-style: none;
+    
+    // Reset du comportement grid par défaut pour cette liste spécifique
+    // car on veut des boutons alignés différemment
+    &.grid { display: flex; } 
+
+    .filter-item {
+        margin: 0.5rem;
+        flex: 1;
+        text-align: center;
+        
+        @media screen and (min-width: 750px) {
+            max-width: 200px; // Largeur max des boutons sur desktop
+        }
+    }
+
+    a {
+        cursor: pointer;
+        display: block;
+        padding: 0.8rem 1.5rem;
+        background: #ccccb3c2; // Couleur bouton inactif
+        color: darkslategray;  // Texte bouton inactif
+        font-family: "Poppins", sans-serif;
+        font-size: 1.4rem;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        border-radius: 4px;
+
+        &:hover, &.active {
+            background: var(--text-main); // Couleur active (foncée)
+            color: var(--bg-color);       // Texte active (clair)
+        }
+    }
+}
+
+/* --- GRILLE PROJETS --- */
+.projects-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.project-item {
+    width: 100%;
+    margin-bottom: 2rem;
+    
+    // Animation d'apparition quand on filtre
+    animation: fadeIn 0.5s ease-in-out;
+
+    @media screen and (min-width: 750px) {
+        max-width: 30%; // 3 par ligne sur grand écran
+    }
+}
+
+/* --- CARTE PROJET --- */
+.card {
+    background: var(--card-bg);
+    position: relative;
+    box-shadow: 0 0 7px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &:hover .card__overlay {
+        top: 0; // L'overlay descend
+    }
+}
+
+.card__image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover; // L'image remplit le cadre sans déformation
+    display: block;
+}
+
+.card__inner {
+    padding: 2rem;
+    text-align: center;
+    flex: 1;
+}
+
+.card__title {
+    margin: 0 0 1rem;
+    font-size: 1.6rem;
+    color: var(--text-main);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.category {
+    margin: 0;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: var(--text-accent);
+}
+
+/* --- OVERLAY (HOVER) --- */
+.card__overlay {
+    background-color: var(--text-main); // Fond de l'overlay
+    position: absolute;
+    top: 110%; // Caché en bas par défaut
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.9;
+    transition: all 0.3s ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.card__link {
+    font-size: 4.5rem;
+    color: var(--bg-color); // Le "+" est de la couleur du fond
+    cursor: pointer;
+    text-decoration: none;
+    
+    &:hover {
+        transform: scale(1.2);
+        transition: transform 0.2s;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

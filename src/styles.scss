@@ -1,1 +1,68 @@
-/* You can add global styles to this file, and also import other style files */
+/* src/styles.scss */
+
+/* Variables de thème (CSS Variables pour le switch dynamique) */
+:root {
+  /* MODE CLAIR (Tes couleurs actuelles) */
+  --bg-color: #fafbe7;
+  --bg-secondary: #fdeca6; /* Pour le Hero */
+  --bg-tertiary: #f8edc3;  /* Pour Services/Portfolio */
+  
+  --text-main: darkslategray;
+  --text-accent: brown;
+  
+  --nav-bg: #fafbe7;
+  --card-bg: #fafbe7;
+  --border-color: #7c8085;
+  
+  --shadow-color: rgba(0,0,0,0.6);
+}
+
+/* MODE SOMBRE (On prépare le terrain) */
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-tertiary: #252525;
+  
+  --text-main: #e0e0e0;
+  --text-accent: #ffb74d; /* Un orange/doré sympa pour le dark mode */
+  
+  --nav-bg: #121212;
+  --card-bg: #1e1e1e;
+  --border-color: #444;
+  
+  --shadow-color: rgba(0,0,0,0.9);
+}
+
+/* Reset de base et Typo */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%; /* 1rem = 10px */
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.6rem;
+  margin: 0;
+  background-color: var(--bg-color); /* Utilisation de la variable */
+  color: var(--text-main);
+  transition: background-color 0.3s, color 0.3s; /* Transition douce pour le changement de thème */
+}
+
+/* Gestion Mobile First : Le CSS par défaut est pour le mobile */
+.container {
+  padding: 1rem 2rem;
+  width: 100%;
+}
+
+/* Media Queries pour Desktop (min-width) */
+@media screen and (min-width: 750px) {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+}

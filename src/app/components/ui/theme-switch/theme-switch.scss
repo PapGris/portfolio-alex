@@ -1,0 +1,24 @@
+.theme-btn {
+    background: transparent;
+    border: 2px solid var(--text-main);
+    color: var(--text-main);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: rotate(15deg) scale(1.1);
+        background: var(--text-main);
+        
+        span {
+            // Astuce : quand le fond devient foncé, on change pas la couleur de l'emoji
+            // mais filter: invert peut être utile si c'était du SVG
+        }
+    }
+}

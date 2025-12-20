@@ -1,0 +1,140 @@
+.modal {
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    z-index: 2000; // Au-dessus de tout (même du header)
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); // Fond sombre semi-transparent
+    backdrop-filter: blur(5px); // Petit effet de flou moderne
+    transition: all 0.5s;
+    overflow: hidden; // Pour gérer le scroll interne
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.show {
+        visibility: visible;
+        opacity: 1;
+        
+        // Animation d'entrée du contenu
+        .modal__content {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+}
+
+.modal__content {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    width: 100%;
+    height: 100%; // Plein écran sur mobile
+    padding: 5rem 1rem;
+    overflow-y: auto; // Scroll interne si le contenu est long
+    text-align: left;
+    position: relative;
+    transition: all 0.5s;
+    
+    // Sur Desktop, on fait une fenêtre plus petite
+    @media screen and (min-width: 750px) {
+        width: 80%;
+        height: auto;
+        max-height: 90vh;
+        border-radius: 10px;
+        padding: 3rem;
+        transform: scale(0.7); // Départ de l'animation (plus petit)
+        opacity: 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+}
+
+.modal__close {
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+    background: transparent;
+    border: none;
+    font-size: 4rem;
+    color: white; // Toujours blanc car sur le fond sombre
+    cursor: pointer;
+    z-index: 2001;
+    transition: transform 0.3s;
+
+    &:hover {
+        transform: rotate(90deg);
+        color: var(--text-accent);
+    }
+    
+    // Sur desktop, comme le fond est blanc, on change la couleur
+    @media screen and (min-width: 750px) {
+        color: var(--text-main);
+        top: 1rem;
+        right: 1rem;
+    }
+}
+
+.modal__title {
+    margin: 0 0 2rem;
+    font-family: "Protest Revolution", sans-serif;
+    font-size: 3rem;
+    text-transform: uppercase;
+}
+
+.h3 {
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-accent);
+}
+
+img {
+    margin-bottom: 2rem;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.meta-info {
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    
+    .icon {
+        margin-right: 1rem;
+    }
+}
+
+.tech-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    li {
+        background: var(--bg-tertiary);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--text-main);
+    }
+}
+
+// Mise en page Grid (copiée de ton layout)
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.grid__item {
+    width: 100%;
+    @media screen and (min-width: 750px) {
+        max-width: 48%; // Moitié-Moitié
+    }
+}

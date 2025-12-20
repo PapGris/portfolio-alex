@@ -1,0 +1,30 @@
+<div class="services-container">
+    <div class="container">
+        
+        <div class="section-header">
+            <h2 class="section-title">Mes services</h2>
+            <p>N'étant encore qu'"apprenti", mes services resterons limités. Cependant, j'ai les bases suffisantes pour proposer la création d'un site internet simple.</p>
+            <p>De plus, étant depuis longtemps dans la création graphique, je peux proposer des logos ou vidéos.</p>
+        </div>
+
+        <div class="grid">
+            <div class="grid__item" *ngFor="let service of servicesList">
+                <div class="service-card">
+                   
+                   <div class="service__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path [attr.d]="service.iconPath" />
+                    </svg>
+                   </div> 
+                   
+                   <div class="service__content">
+                    <h3>{{ service.title }}</h3>
+                    <p>{{ service.description }}</p>
+                   </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

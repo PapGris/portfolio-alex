@@ -1,0 +1,43 @@
+<div class="modal" [class.show]="isOpen" (click)="onClose()">
+    
+    <button class="modal__close" (click)="onClose()">&times;</button>
+
+    <div class="modal__content" (click)="stopPropagation($event)">
+        
+        <div class="container" *ngIf="project">
+            <div class="grid">
+                
+                <div class="grid__item">
+                    <img [src]="project.image" [alt]="project.title">
+                    </div>
+
+                <div class="grid__item">
+                    <h4 class="modal__title h2">{{ project.title }}</h4>
+                    
+                    <p class="meta-info">
+                        <span class="icon">📅</span>
+                        <i>Année : {{ project.year }}</i>
+                    </p>
+                    
+                    <p class="meta-info">
+                        <span class="icon">🏷️</span>
+                        {{ project.categoryDisplay }}
+                    </p>
+
+                    <h5 class="h3">Informations</h5>
+                    <p>{{ project.fullDescription }}</p>
+
+                    <h5 class="h3">Technologies :</h5>
+                    <ul class="tech-list">
+                        <li *ngFor="let tech of project.techs">{{ tech }}</li>
+                    </ul>
+                    
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+ <!-- TODO ne pas avoir besoin de cliquer juste sur la croix pour ouvrir modal -->

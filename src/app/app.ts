@@ -1,12 +1,15 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { Header } from './components/layout/header/header'; // Import du fichier header.ts
+import { Footer } from './components/layout/footer/footer'; // Import du fichier footer.ts
+import { Main } from './components/layout/main/main';             // Import du fichier main.ts
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [Header, Main, Footer],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrls: ['./app.scss']
 })
 export class App {
-  protected readonly title = signal('portfolio-alex');
+  title = 'portfolio-alex';
 }
