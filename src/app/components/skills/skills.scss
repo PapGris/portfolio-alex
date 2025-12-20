@@ -16,7 +16,7 @@
     overflow: hidden; 
 }
 
-/* --- EN-TÊTE --- */
+/* --- HEADER --- */
 .section-header {
     text-align: center;
     flex: 0 0 auto;
@@ -41,7 +41,7 @@
 .grid {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 95%;
     flex: 1 1 auto; 
     min-height: 0; 
     gap: 1vh; 
@@ -58,27 +58,21 @@
 
 .grid__item {
     width: 100%;
-    flex: 1 1 50%; 
+    flex: 0 1 auto; /* Important : ne pousse pas la hauteur */
     overflow: hidden; 
     display: flex;
     flex-direction: column;
     min-height: 0;
-    
-    @media screen and (min-width: 992px) {
-        width: 45%;
-        justify-content: flex-start; 
-    }
 }
 
 h3 {
-    font-size: clamp(1.2rem, 2vh, 1.6rem);
+    font-size: clamp(1.1rem, 2vh, 1.5rem);
     margin-bottom: 0.5vh;
     text-transform: uppercase;
     font-family: "Protest Revolution", sans-serif;
     color: var(--text-accent);
     border-bottom: 1px solid rgba(128,128,128,0.2);
     padding-bottom: 0.2vh;
-    display: inline-block;
     flex: 0 0 auto;
 
     @media screen and (min-width: 992px) {
@@ -88,40 +82,31 @@ h3 {
     }
 }
 
-/* --- GAUCHE : DOMAINES --- */
+/* --- GAUCHE : SPÉCIALISATIONS (LISIBLE) --- */
 .list-unstyled {
     list-style: none;
     padding: 0; margin: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; 
-    height: 100%; 
-    overflow: hidden;
+    gap: 0.8vh;
 
     li {
         background: rgba(var(--nav-bg-rgb, 128,128,128), 0.05);
         border-left: 3px solid var(--text-accent);
-        padding: 0.8vh 1.2vh; 
+        padding: 0.6vh 1vh; 
         border-radius: 0 6px 6px 0;
-        margin-bottom: 0.5vh; 
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        flex: 1 1 auto;
-        min-height: 0;
 
         h4 {
             margin: 0;
-            font-size: clamp(1rem, 1.6vh, 1.2rem);
+            font-size: clamp(0.95rem, 1.6vh, 1.2rem);
             font-family: "Poppins", sans-serif;
             font-weight: 700;
             color: var(--text-main);
-            line-height: 1.2;
         }
 
         p {
             margin: 0;
-            font-size: clamp(0.85rem, 1.3vh, 1rem);
+            font-size: clamp(0.8rem, 1.3vh, 1rem);
             font-family: "Poppins", sans-serif;
             opacity: 0.8;
             line-height: 1.2;
@@ -134,33 +119,29 @@ h3 {
     }
     
     @media screen and (min-width: 992px) {
-         justify-content: flex-start;
          gap: 1.5rem;
          li { 
              padding: 1.5rem 2rem; 
-             margin-bottom: 0;
-             flex: 0 0 auto;
-             border-left-width: 5px;
-             h4 { font-size: 1.8rem; margin-bottom: 0.5rem; }
-             p { font-size: 1.4rem; line-height: 1.5; -webkit-line-clamp: 3; line-clamp: 3; opacity: 0.9; }
+             h4 { font-size: 1.8rem; }
+             p { font-size: 1.4rem; -webkit-line-clamp: 3; line-clamp: 3; opacity: 0.9; }
          }
     }
 }
 
-/* --- DROITE : STACK TECHNIQUE --- */
+/* --- DROITE : STACK TECHNIQUE (ULTRA COMPACT MOBILE) --- */
 .skills-grid {
     display: grid;
+    /* 4 colonnes sur mobile pour ne pas être trop petit, mais bien aligné */
     grid-template-columns: repeat(4, 1fr); 
     gap: 0.8vh;
     width: 100%;
     margin-top: 0; 
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     align-content: flex-start;
 
     @media screen and (min-width: 992px) {
         grid-template-columns: repeat(3, 1fr);
         gap: 2rem;
-        padding-top: 0.5rem; 
     }
 }
 
@@ -170,66 +151,47 @@ h3 {
     align-items: center;
     justify-content: center;
     text-align: center;
+    
+    /* TAILLE MOBILE : Hauteur automatique basée sur la largeur pour rester carré */
     aspect-ratio: 1 / 1; 
     padding: 0.5vh; 
+    
     background: rgba(var(--nav-bg-rgb, 128,128,128), 0.05);
     border-radius: 8px;
     border: 1px solid rgba(128,128,128, 0.1);
-    
-    /* On définit la couleur de base ici pour qu'elle soit héritée */
     color: var(--text-main);
-    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.3s ease;
 
     &:hover {
-        transform: translateY(-5px);
-        background: rgba(var(--text-accent-rgb, 211, 173, 127), 0.1);
-        border-color: var(--text-accent);
-        
-        /* Changement de couleur globale au hover */
+        transform: translateY(-3px);
         color: var(--text-accent);
-
-        .icon-box svg { 
-            transform: scale(1.1); 
-            /* On s'assure que le fill et le stroke suivent */
-            fill: var(--text-accent);
-            stroke: var(--text-accent);
-        }
+        border-color: var(--text-accent);
+        .icon-box svg { transform: scale(1.1); fill: var(--text-accent); stroke: var(--text-accent); }
     }
 
     .icon-box {
-        width: 50%; 
-        height: 50%;
+        height: 40%; 
+        width: 40%;
         margin-bottom: 0.3vh;
         display: flex;
         align-items: center;
         justify-content: center;
 
         svg {
-            width: 100%;
-            height: 100%;
-            /* Utilisation de currentColor pour hériter du parent .skill-icon-card */
-            fill: currentColor;
-            stroke: currentColor;
-            transition: all 0.3s ease;
+            width: 100%; height: 100%;
+            fill: currentColor; stroke: currentColor;
             object-fit: contain; 
-        }
-
-        @media screen and (min-width: 992px) {
-            width: 45%;
-            height: 45%;
-            margin-bottom: 1rem;
         }
     }
 
     span {
         font-family: "Poppins", sans-serif;
         font-weight: 600;
-        font-size: clamp(0.6rem, 1vh, 0.8rem);
-        /* La couleur est déjà gérée par le parent .skill-icon-card */
+        font-size: 0.65rem; /* Réduit pour éviter de pousser la carte vers le bas */
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        width: 100%;
+        width: 90%;
 
         @media screen and (min-width: 992px) {
             font-size: 1.1rem;
@@ -238,7 +200,9 @@ h3 {
     }
 
     @media screen and (min-width: 992px) {
-        padding: 1vh;
+        padding: 1.5rem;
         border-radius: 12px;
+        height: auto;
+        max-width: 140px;
     }
 }
