@@ -1,132 +1,350 @@
+/* header.scss - MOBILE FIRST */
+
+/* --- CONFIGURATION --- */
 .header {
+    --neon-color: var(--text-accent, #d3ad7f);
+    --glass-bg: rgba(var(--nav-bg-rgb, 255, 255, 255), 0.95);
+    
     background-color: var(--nav-bg);
-    border-bottom: 1px solid var(--border-color);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.1);
     position: sticky;
     top: 0;
-    z-index: 100;
-    transition: background-color 0.3s;
+    z-index: 1000;
+    padding: 0.8rem 0; /* Un peu moins haut sur mobile */
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.4s ease;
+
+    ul { list-style: none !important; padding: 0; margin: 0; }
+    a { text-decoration: none; }
+
+    .container {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 0 1.5rem; /* Marges latérales standard mobile */
+    }
+
+    .d-flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    /* --- LOGO 3D (Base Mobile) --- */
+    .logo-link {
+        display: block;
+        line-height: 0;
+        z-index: 1002;
+    }
 
     .logo {
-        font-family: "Poppins", sans-serif;
-        font-size: 2rem;
-        letter-spacing: 2px;
-        color: var(--text-main);
-    }
-
-    li {
-        display: inline-flex;
-        align-items: center;
-        padding: 0 0.5rem;
-    }
-
-    a {
-        color: var(--text-main);
-        &:hover {
-            color: var(--text-accent);
-            transition: all 0.5s;
+        width: 65px; /* Taille Mobile par défaut */
+        height: 65px;
+        perspective: 1000px;
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            animation: flip 6s infinite linear; 
+            transform-style: preserve-3d;
         }
     }
 
+    /* --- BURGER MENU (Visible par défaut sur Mobile) --- */
+    .burger {
+        background: none;
+        border: none;
+        width: 45px;
+        height: 45px;
+        cursor: pointer;
+        position: relative;
+        z-index: 1002;
+        -webkit-tap-highlight-color: transparent;
+
+        .bar {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background-color: var(--text-main);
+            margin: 0 auto;
+            position: relative;
+            transition: all 0.3s ease-in-out;
+            border-radius: 3px;
+
+            &::before, &::after {
+                content: ""; position: absolute; left: 0; width: 100%; height: 100%;
+                background-color: var(--text-main); transition: all 0.3s ease-in-out; border-radius: 3px;
+            }
+            &::before { top: -9px; }
+            &::after { top: 9px; }
+        }
+
+        &.active .bar {
+            background-color: transparent;
+            &::before { top: 0; transform: rotate(45deg); }
+            &::after { top: 0; transform: rotate(-45deg); }
+        }
+    }
+
+    /* --- SOCIALS (Cachés par défaut sur Mobile) --- */
     .right {
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 1.5rem;
     }
 
     .socials {
-        display: flex;
+        display: none; /* Mobile first : on cache */
+    }
+
+    /* --- NAVBAR & MENU (Design Mobile "Cartes Tech" par défaut) --- */
+    .navbar {
+        display: flex; /* Toujours flex, mais caché visuellement */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 1001;
         
-        /* Masquer les réseaux sociaux sur mobile si l'écran est trop petit pour éviter l'encombrement */
-        @media screen and (max-width: 450px) {
+        background-color: var(--nav-bg);
+        background-image: 
+            linear-gradient(rgba(128, 128, 128, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(128, 128, 128, 0.05) 1px, transparent 1px);
+        background-size: 50px 50px;
+        
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+        /* État fermé par défaut */
+        opacity: 0;
+        visibility: hidden;
+        transform: perspective(1000px) translateZ(100px);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &.show-nav {
+            opacity: 1;
+            visibility: visible;
+            transform: perspective(1000px) translateZ(0);
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 350px;
+            padding: 0 1rem;
+
+            li {
+                width: 100%;
+                opacity: 0; /* Pour l'animation cascade */
+                transform: translateY(20px);
+                transition: all 0.4s ease;
+            }
+        }
+        
+        /* Cascade d'apparition */
+        &.show-nav .menu li {
+            opacity: 1;
+            transform: translateY(0);
+            &:nth-child(1) { transition-delay: 0.1s; }
+            &:nth-child(2) { transition-delay: 0.2s; }
+            &:nth-child(3) { transition-delay: 0.3s; }
+            &:nth-child(4) { transition-delay: 0.4s; }
+            &:nth-child(5) { transition-delay: 0.5s; }
+            &:nth-child(6) { transition-delay: 0.6s; }
+        }
+
+        /* --- STYLE DES LIENS (Look Mobile "Carte") --- */
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            width: 100%;
+            padding: 1.2rem 0;
+            
+            background: rgba(128, 128, 128, 0.05);
+            border: 1px solid rgba(128, 128, 128, 0.1);
+            border-radius: 50px;
+            
+            font-family: "Poppins", sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            text-transform: uppercase;
+            color: var(--text-main);
+            
+            transition: all 0.3s ease;
+
+            /* Balises Mobile (Visibles et espacées de 25px) */
+            &::before {
+                content: '<';
+                font-family: monospace;
+                color: var(--neon-color);
+                font-size: 2.2rem;
+                margin-right: 25px; 
+                opacity: 0.6;
+                transition: transform 0.3s;
+            }
+
+            &::after {
+                content: '/>';
+                font-family: monospace;
+                color: var(--neon-color);
+                font-size: 2.2rem;
+                margin-left: 25px;
+                opacity: 0.6;
+                transition: transform 0.3s;
+            }
+
+            &:hover, &:active {
+                background: rgba(var(--nav-bg-rgb, 0,0,0), 0.8);
+                border-color: var(--neon-color);
+                color: var(--neon-color);
+                transform: scale(1.05);
+                box-shadow: 0 0 15px rgba(211, 173, 127, 0.2);
+
+                &::before { opacity: 1; transform: translateX(-5px); }
+                &::after { opacity: 1; transform: translateX(5px); }
+            }
+        }
+    }
+
+
+    /* ========================================= */
+    /* === DESKTOP OVERRIDES (min-width: 992px) === */
+    /* ========================================= */
+    @media screen and (min-width: 992px) {
+        
+        padding: 1rem 0; /* Padding Desktop */
+
+        .container {
+            padding: 0 2rem;
+        }
+
+        /* Logo plus grand */
+        .logo {
+            width: 80px;
+            height: 80px;
+        }
+
+        /* Cacher le Burger */
+        .burger {
             display: none;
         }
 
-        .icon {
-            height: 18px;
-            fill: var(--text-main);
-            transform: translateY(3.5px);
-            &:hover {
-                fill: var(--text-accent);
-                transition: all 1s;
+        /* Afficher les Socials */
+        .socials {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            a {
+                display: flex;
+                transition: transform 0.3s ease;
+                .icon {
+                    height: 26px;
+                    width: 26px;
+                    fill: var(--text-main);
+                    transition: all 0.3s ease;
+                }
+                &:hover {
+                    transform: translateY(-4px);
+                    .icon { fill: var(--neon-color); filter: drop-shadow(0 0 5px var(--neon-color)); }
+                }
+            }
+        }
+
+        /* --- RESET NAVBAR POUR DESKTOP --- */
+        .navbar {
+            /* Reset Layout */
+            position: static;
+            height: auto;
+            width: auto;
+            background: none; /* Pas de grille ni de couleur */
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+            display: block; /* Ou flex */
+            
+            /* Reset Show-nav overrides (pas d'animation cascade desktop) */
+            &.show-nav { transform: none; }
+            &.show-nav .menu li { opacity: 1; transform: none; transition: none; }
+            
+            .menu {
+                flex-direction: row; /* Horizontal */
+                gap: 3rem;
+                width: auto;
+                max-width: none;
+                padding: 0;
+                
+                li { 
+                    width: auto; 
+                    opacity: 1; 
+                    transform: none; 
+                }
+            }
+
+            /* --- STYLE DES LIENS (Look Desktop "Dev") --- */
+            a {
+                /* Reset du style Carte */
+                width: auto;
+                padding: 0.5rem 0;
+                background: transparent;
+                border: none;
+                border-radius: 0;
+                box-shadow: none;
+                
+                font-size: 1.4rem; /* Taille Desktop */
+                letter-spacing: 1px;
+                
+                display: inline-flex; /* Garder l'alignement */
+
+                /* Balises Desktop (Comportement différent : Cachées par défaut) */
+                &::before {
+                    font-size: 1.6rem;
+                    margin-right: 0; /* Reset marge mobile */
+                    opacity: 0; /* Caché par défaut */
+                    transform: translateX(20px); /* Part de la droite */
+                }
+
+                &::after {
+                    font-size: 1.6rem;
+                    margin-left: 0; /* Reset marge mobile */
+                    opacity: 0; /* Caché par défaut */
+                    transform: translateX(-20px); /* Part de la gauche */
+                }
+
+                /* Hover Desktop (Apparition) */
+                &:hover {
+                    background: transparent;
+                    transform: none; /* Pas de zoom global */
+                    box-shadow: none;
+                    color: var(--neon-color);
+
+                    &::before { 
+                        opacity: 1; 
+                        transform: translateX(0); 
+                        margin-right: 8px; /* Espace Desktop */
+                    }
+                    &::after { 
+                        opacity: 1; 
+                        transform: translateX(0); 
+                        margin-left: 8px; /* Espace Desktop */
+                    }
+                }
             }
         }
     }
 }
 
-/* --- BURGER MENU STYLE --- */
-.burger {
-    background: none;
-    border: none;
-    width: 35px;
-    height: 35px;
-    cursor: pointer;
-    position: relative;
-    margin-left: 1rem;
-
-    .bar {
-        display: block;
-        width: 22px;
-        height: 3px;
-        background-color: var(--text-main);
-        transition: all 0.3s;
-
-        &::before, &::after {
-            display: block;
-            content: "";
-            width: 22px;
-            height: 3px;
-            background-color: var(--text-main);
-            position: absolute;
-            transition: all 0.3s;
-        }
-
-        &::before { transform: translateY(-8px); }
-        &::after { transform: translateY(8px); }
-    }
-
-    // Animation de la croix quand actif
-    &.active .bar {
-        background-color: transparent; // La barre du milieu disparait
-        &::before { transform: rotate(45deg); }
-        &::after { transform: rotate(-45deg); }
-    }
-    
-    // Cacher le burger sur desktop
-    @media screen and (min-width: 750px) {
-        display: none;
-    }
-}
-
-/* --- NAVIGATION RESPONSIVE --- */
-@media screen and (min-width: 750px) {
-    .navbar { display: flex; }
-}
-
-@media screen and (max-width: 749px) {
-    .navbar {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        top: 55px; /* Hauteur du header */
-        left: 110%; /* Caché à droite */
-        width: 100%;
-        height: calc(100vh - 55px);
-        background: var(--bg-secondary); /* Fond du menu mobile */
-        opacity: 0;
-        transition: all 0.4s ease-out;
-
-        &.show-nav {
-            left: 0;
-            opacity: 1;
-        }
-
-        a {
-            display: block;
-            font-size: 2rem;
-            padding: 2rem;
-            &:hover { transform: scale(1.1); }
-        }
-    }
+/* Animation Flip (Globale) */
+@keyframes flip {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(180deg); }
+    100% { transform: rotateY(360deg); }
 }

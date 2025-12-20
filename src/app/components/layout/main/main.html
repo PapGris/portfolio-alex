@@ -1,25 +1,60 @@
-<main>
-    <section id="hero">
-        <app-hero></app-hero>
+<main class="main-scroller">
+
+    <nav class="nav-dots">
+        <a href="#hero" class="dot-link dot-hero" aria-label="Accueil"></a>
+        <a href="#about" class="dot-link dot-about" aria-label="À propos"></a>
+        <a href="#services" class="dot-link dot-services" aria-label="Services"></a>
+        <a href="#skills" class="dot-link dot-skills" aria-label="Compétences"></a>
+        <a href="#portfolio" class="dot-link dot-portfolio" aria-label="Portfolio"></a>
+        <a href="#contact" class="dot-link dot-contact" aria-label="Contact"></a>
+    </nav>
+
+    <section id="hero" class="scroll-section">
+        <div class="sticky-wrapper">
+            <div class="window-card">
+                <app-hero></app-hero>
+            </div>
+        </div>
     </section>
 
-    <section id="about">
-        <app-about></app-about>
+    <section id="about" class="scroll-section">
+        <div class="sticky-wrapper">
+            <div class="window-card">
+                <app-about></app-about>
+            </div>
+        </div>
     </section>
 
-    <section id="services">
-        <app-services></app-services>
+    <section id="services" class="scroll-section">
+        <div class="sticky-wrapper">
+            <div class="window-card">
+                <app-services></app-services>
+            </div>
+        </div>
     </section>
 
-    <section id="skills">
-        <app-skills></app-skills>
+    <section id="skills" class="scroll-section">
+        <div class="sticky-wrapper">
+            <div class="window-card">
+                <app-skills></app-skills>
+            </div>
+        </div>
     </section>
 
-    <section id="portfolio">
-        <app-portfolio></app-portfolio>
+    <section id="portfolio" class="scroll-section">
+        <div class="sticky-wrapper">
+            <div class="window-card">
+                <app-portfolio></app-portfolio>
+            </div>
+        </div>
     </section>
 
-    <section id="contact">
-        <app-contact></app-contact>
+    <section id="contact" class="scroll-section">
+        <div class="sticky-wrapper">
+            <div class="window-card">
+                <app-contact></app-contact>
+            </div>
+        </div>
     </section>
+
 </main>

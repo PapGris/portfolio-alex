@@ -1,79 +1,116 @@
-.contact-container {
-    padding: 5.5rem 0;
-    // On alterne : Hero(Secondary) -> About(Primary) -> Services(Tertiary) -> Skills(Secondary) -> Portfolio(Tertiary) -> Contact(Secondary)
-    background-color: var(--bg-secondary);
-    color: var(--text-main);
+/* src/app/components/contact/contact.scss */
+
+:host {
+    display: block;
+    height: 100%;
 }
 
-.section-title {
+.contact-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centre verticalement le formulaire */
+    align-items: center;
+}
+
+/* --- EN-TÊTE --- */
+.section-header {
     text-align: center;
-    font-size: 3.8rem;
-    margin-bottom: 1rem;
-    @media screen and (min-width: 750px) {
-        font-size: 4.8rem;
+    margin-bottom: 3rem;
+
+    p {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.5rem;
+        opacity: 0.9;
+        margin: 0;
+        color: var(--text-main);
     }
 }
 
-.section-header p {
-    text-align: center;
-    margin-bottom: 3rem;
+.section-title {
+    font-family: "Protest Revolution", sans-serif;
+    font-size: 3.2rem;
+    margin: 0 0 1rem 0;
+    color: var(--text-main);
+
+    @media screen and (min-width: 992px) {
+        font-size: 4.5rem;
+    }
 }
 
+/* --- FORMULAIRE --- */
 .form {
-    max-width: 600px;
-    margin: 2rem auto 0 auto;
+    width: 100%;
+    max-width: 600px; /* Limite la largeur sur desktop pour l'esthétique */
 }
 
 .form-group {
     margin-bottom: 2rem;
 }
 
+/* --- INPUTS & TEXTAREA --- */
 input, textarea {
     outline: none;
     display: block;
     width: 100%;
     padding: 1.5rem;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-family: "Poppins", sans-serif;
+    
+    /* Style Verre pour les inputs */
+    background: rgba(var(--nav-bg-rgb, 128,128,128), 0.05); 
     border: 1px solid var(--border-color);
-    border-radius: 5px;
-    background-color: var(--bg-color); // Fond input s'adapte au thème
+    border-radius: 8px;
     color: var(--text-main);
-    transition: all 0.3s;
+    
+    transition: all 0.3s ease;
 
-    &:focus {
-        border-color: var(--text-accent); // Couleur marron/orange au focus
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    /* Placeholder stylisé */
+    &::placeholder {
+        color: var(--text-main);
+        opacity: 0.5;
     }
 
-    &::placeholder {
-        color: #999;
+    /* État Focus */
+    &:focus {
+        background: rgba(var(--nav-bg-rgb, 128,128,128), 0.15);
+        border-color: var(--text-accent); /* Bordure jaune/marron */
+        box-shadow: 0 0 0 4px rgba(var(--text-accent-rgb, 211, 173, 127), 0.1);
     }
 }
 
 textarea {
-    min-height: 200px;
-    resize: vertical;
+    min-height: 150px;
+    resize: vertical; /* Permet de redimensionner verticalement uniquement */
 }
 
+/* --- BOUTON --- */
 .btn {
+    width: 100%;
+    padding: 1.2rem;
     background: var(--text-main);
-    color: var(--bg-secondary);
+    color: var(--bg-color); /* Texte clair sur bouton foncé */
     border: none;
-    padding: 1rem 3rem;
-    font-size: 1.6rem;
+    border-radius: 50px; /* Style Pill moderne */
+    
+    font-family: "Poppins", sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 1px;
+    
     cursor: pointer;
-    box-shadow: 0 4px 6px var(--shadow-color);
-    transition: all 0.3s;
-    font-weight: bold;
-    display: block;
-    margin: 0 auto; // Centrer le bouton
-    border-radius: 4px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px var(--shadow-color);
 
     &:hover {
         background: var(--text-accent);
-        color: white;
+        color: white; /* Toujours blanc sur l'accent */
         transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    &:active {
+        transform: translateY(-1px);
     }
 }

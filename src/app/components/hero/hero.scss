@@ -1,0 +1,126 @@
+/* hero.scss - ADAPTÉ "WINDOW MODE" */
+
+.hero-wrapper {
+    /* On enlève le background-color pour laisser la transparence de la fenêtre */
+    background: transparent;
+    color: var(--text-main);
+    width: 100%;
+    
+    /* Plus de hauteur forcée, le contenu remplit l'espace naturellement */
+    height: 100%; 
+    display: flex;
+    align-items: center; /* Centre verticalement dans la fenêtre */
+}
+
+/* On n'a plus besoin de .container ici car la .window-card fait déjà office de container */
+.grid {
+    display: flex;
+    flex-direction: column; /* Mobile First : Colonne */
+    align-items: center;
+    width: 100%;
+    gap: 2rem; /* Espace entre texte et image */
+
+    /* Version Desktop */
+    @media screen and (min-width: 992px) {
+        flex-direction: row; /* On passe en ligne */
+        justify-content: space-between;
+        gap: 4rem;
+    }
+}
+
+/* --- TEXTE (Gauche) --- */
+.hero__item.left {
+    width: 100%;
+    text-align: center;
+    order: 2; /* Sur mobile, le texte est SOUS l'image */
+
+    @media screen and (min-width: 992px) {
+        width: 55%;
+        text-align: left;
+        order: 1; /* Sur desktop, le texte revient à gauche */
+    }
+}
+
+/* --- IMAGE (Droite) --- */
+.hero__item.right {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    order: 1; /* Sur mobile, l'image est AU-DESSUS */
+
+    @media screen and (min-width: 992px) {
+        width: 40%;
+        justify-content: flex-end;
+        order: 2;
+    }
+}
+
+/* --- TYPOGRAPHIE --- */
+.subtitle {
+    font-family: "Poppins", sans-serif;
+    text-transform: uppercase;
+    font-size: 1.2rem; /* Un peu plus petit pour rentrer dans la fenêtre */
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+    color: var(--text-accent); 
+}
+
+.title {
+    font-family: "Protest Revolution", sans-serif;
+    font-size: 3.2rem; /* Adapté au mobile */
+    margin: 0.5rem 0 1.5rem 0;
+    line-height: 1.1;
+
+    @media screen and (min-width: 992px) {
+        font-size: 4.5rem; /* Adapté au desktop fenêtré */
+    }
+}
+
+.description {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    margin: 0 auto; /* Centré sur mobile */
+
+    @media screen and (min-width: 992px) {
+        margin: 0; /* Aligné à gauche sur desktop */
+    }
+}
+
+/* --- AVATAR --- */
+.hero__avatar img {
+    /* On réduit un peu les tailles pour que ça ne déborde pas de la fenêtre */
+    width: 200px; 
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 10px 20px var(--shadow-color);
+    border: 4px solid rgba(255, 255, 255, 0.3); /* Bordure subtile */
+
+    @media screen and (min-width: 992px) {
+        width: 320px;
+        height: 320px;
+    }
+}
+
+/* --- ANIMATIONS (Gardées mais simplifiées) --- */
+.slide-in-left {
+    animation: slideInleft 0.8s ease-out forwards;
+}
+
+.slide-in-right {
+    animation: slideInright 0.8s ease-out forwards;
+}
+
+@keyframes slideInleft {
+    from { transform: translateX(-50px); opacity: 0; } /* Mouvement plus court */
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInright {
+    from { transform: translateX(50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}

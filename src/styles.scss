@@ -1,68 +1,218 @@
-/* src/styles.scss */
+/* src/styles.scss - VERSION FIXÉE */
 
-/* Variables de thème (CSS Variables pour le switch dynamique) */
 :root {
-  /* MODE CLAIR (Tes couleurs actuelles) */
-  --bg-color: #fafbe7;
-  --bg-secondary: #fdeca6; /* Pour le Hero */
-  --bg-tertiary: #f8edc3;  /* Pour Services/Portfolio */
-  
+  /* ... Tes variables de couleurs (inchangées) ... */
+  --bg-color: #f4e196;
+  --bg-secondary: #fdeca6;
+  --bg-tertiary: #f8edc3;
   --text-main: darkslategray;
   --text-accent: brown;
-  
   --nav-bg: #fafbe7;
-  --card-bg: #fafbe7;
+  --card-bg: rgba(250, 251, 231, 0.90); /* Un peu plus opaque pour lisibilité */
   --border-color: #7c8085;
+  --shadow-color: rgba(0,0,0,0.1);
+  --dot-inactive: rgba(128, 128, 128, 0.5);
   
-  --shadow-color: rgba(0,0,0,0.6);
+  /* HAUTEURS FIXES (Pour le calcul du centrage) */
+  --header-height: 80px; 
+  --footer-height: 50px;
 }
 
-/* MODE SOMBRE (On prépare le terrain) */
 [data-theme="dark"] {
+  /* ... Tes variables Dark Mode (inchangées) ... */
   --bg-color: #121212;
   --bg-secondary: #1e1e1e;
   --bg-tertiary: #252525;
-  
   --text-main: #e0e0e0;
-  --text-accent: #ffb74d; /* Un orange/doré sympa pour le dark mode */
-  
+  --text-accent: #ffb74d;
   --nav-bg: #121212;
-  --card-bg: #1e1e1e;
+  --card-bg: rgba(30, 30, 30, 0.90);
   --border-color: #444;
-  
-  --shadow-color: rgba(0,0,0,0.9);
+  --shadow-color: rgba(0,0,0,0.5);
+  --dot-inactive: rgba(255, 255, 255, 0.3);
 }
 
-/* Reset de base et Typo */
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 html {
-  font-size: 62.5%; /* 1rem = 10px */
-  scroll-behavior: smooth;
+  font-size: 62.5%;
+  scroll-snap-type: y mandatory;
+  timeline-scope: --section-hero, --section-about, --section-services, --section-skills, --section-portfolio, --section-contact;
 }
 
 body {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.6rem;
   margin: 0;
-  background-color: var(--bg-color); /* Utilisation de la variable */
+  background-color: var(--bg-color);
   color: var(--text-main);
-  transition: background-color 0.3s, color 0.3s; /* Transition douce pour le changement de thème */
+  transition: background-color 0.3s, color 0.3s;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-/* Gestion Mobile First : Le CSS par défaut est pour le mobile */
-.container {
-  padding: 1rem 2rem;
+/* --- LE RAIL --- */
+.scroll-section {
+  height: 100vh;
   width: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
-/* Media Queries pour Desktop (min-width) */
-@media screen and (min-width: 750px) {
-  .container {
+/* TIMELINES (Inchangées) */
+#hero { view-timeline: --section-hero block; }
+#about { view-timeline: --section-about block; }
+#services { view-timeline: --section-services block; }
+#skills { view-timeline: --section-skills block; }
+#portfolio { view-timeline: --section-portfolio block; }
+#contact { view-timeline: --section-contact block; }
+
+
+/* --- LE WRAPPER ANIMÉ (CORRECTIF CENTRAGE) --- */
+.sticky-wrapper {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  
+  /* On utilise le padding pour définir la zone "sûre" entre header et footer */
+  padding-top: var(--header-height);
+  padding-bottom: var(--footer-height);
+  
+  display: flex;
+  align-items: center; /* Centre verticalement dans la zone sûre */
+  
+  /* Sur Mobile : On aligne à gauche pour laisser place aux dots à droite */
+  justify-content: flex-start; 
+  padding-left: 20px; /* Marge gauche */
+
+  pointer-events: none; 
+  opacity: 0; visibility: hidden;
+  animation: appear-disappear linear both;
+  z-index: 10; /* Sous le header/footer (1010) mais sur le fond */
+}
+
+/* Desktop : On recentre tout parfaitement */
+@media screen and (min-width: 992px) {
+    .sticky-wrapper {
+        justify-content: center; /* Centré horizontalement */
+        padding-left: 0;
+    }
+}
+
+/* LIAISONS ANIMATIONS (Inchangées) */
+#hero .sticky-wrapper      { animation-timeline: --section-hero; }
+#about .sticky-wrapper     { animation-timeline: --section-about; }
+#services .sticky-wrapper  { animation-timeline: --section-services; }
+#skills .sticky-wrapper    { animation-timeline: --section-skills; }
+#portfolio .sticky-wrapper { animation-timeline: --section-portfolio; }
+#contact .sticky-wrapper   { animation-timeline: --section-contact; }
+
+
+/* --- LA FENÊTRE (CORRECTIF MOBILE) --- */
+.window-card {
+  pointer-events: auto;
+  
+  /* MOBILE : On réduit la largeur pour ne pas toucher les dots à droite */
+  width: calc(100% - 60px); /* 100% - place pour les dots */
+  max-width: 500px; /* Limite la largeur sur tablette */
+  
+  height: 100%; /* Remplit l'espace vertical disponible (défini par le padding du wrapper) */
+  max-height: 75vh; /* Sécurité pour ne pas être trop grand */
+  
+  padding: 1.5rem;
+  
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px var(--shadow-color);
+  overflow-y: auto; 
+  
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-thumb { background-color: var(--text-accent); border-radius: 10px; }
+}
+
+/* DESKTOP : Fenêtre large et centrée */
+@media screen and (min-width: 992px) {
+  .window-card {
+    width: 80%;
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
+    height: 85%; /* Hauteur relative à la zone sûre */
+    padding: 4rem;
+    border-radius: 20px;
+    
+    /* Scrollbar un peu plus large */
+    &::-webkit-scrollbar { width: 6px; }
   }
+}
+
+/* --- ANIMATION (Inchangée) --- */
+@keyframes appear-disappear {
+  0% { opacity: 0; transform: scale(0.95) translateY(30px); visibility: hidden; }
+  20%, 80% { opacity: 1; transform: scale(1) translateY(0); visibility: visible; }
+  100% { opacity: 0; transform: scale(1.05) translateY(-30px); visibility: hidden; }
+}
+
+/* --- NAVIGATION DOTS --- */
+.nav-dots {
+    position: fixed;
+    top: 50%;
+    right: 15px; /* Collé à droite */
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 1000;
+    padding: 8px;
+    
+    background: rgba(var(--nav-bg-rgb, 128,128,128), 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+}
+
+.dot-link {
+    display: block;
+    width: 10px; height: 10px; /* Un peu plus petits sur mobile */
+    border-radius: 50%;
+    background-color: var(--dot-inactive);
+    transition: all 0.2s;
+    position: relative;
+    cursor: pointer;
+    
+    /* Tooltip caché sur mobile pour éviter la pollution visuelle */
+    &::after { display: none; }
+}
+
+/* Desktop : Dots plus grands + Tooltips */
+@media screen and (min-width: 992px) {
+    .nav-dots { right: 25px; gap: 20px; padding: 15px; }
+    .dot-link { width: 12px; height: 12px; }
+    
+    .dot-link::after {
+        content: attr(aria-label);
+        display: block;
+        position: absolute;
+        right: 30px; top: 50%;
+        transform: translateY(-50%) translateX(10px);
+        background: var(--text-main); color: var(--bg-color);
+        padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;
+        opacity: 0; pointer-events: none; white-space: nowrap; transition: all 0.3s;
+    }
+    .dot-link:hover::after { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+
+/* ANIMATION DOTS (Inchangée) */
+.dot-hero      { animation: dot-active linear both; animation-timeline: --section-hero; }
+.dot-about     { animation: dot-active linear both; animation-timeline: --section-about; }
+.dot-services  { animation: dot-active linear both; animation-timeline: --section-services; }
+.dot-skills    { animation: dot-active linear both; animation-timeline: --section-skills; }
+.dot-portfolio { animation: dot-active linear both; animation-timeline: --section-portfolio; }
+.dot-contact   { animation: dot-active linear both; animation-timeline: --section-contact; }
+
+@keyframes dot-active {
+    0%, 100% { background-color: var(--dot-inactive); transform: scale(1); }
+    45%, 55% { background-color: transparent; border: 2px solid var(--text-accent); transform: scale(1.5); box-shadow: inset 0 0 0 2px var(--text-accent); }
 }

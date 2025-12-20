@@ -1,19 +1,170 @@
-footer {
+/* footer.scss - MOBILE FIRST (Fixe & Compact) */
+
+.footer {
+    /* --- FIXATION --- */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1010;
+    
+    /* --- DESIGN --- */
+    background-color: var(--nav-bg); 
+    border-top: 1px solid rgba(128, 128, 128, 0.1);
     color: var(--text-main);
-    background: var(--bg-tertiary); /* Couleur différente pour le footer */
-    text-align: center;
-    font-size: 1.4rem;
-    padding: 2rem 0;
+    font-family: 'Poppins', sans-serif;
+    
+    /* PADDING RÉDUIT : On passe de 1rem à 0.5rem */
+    padding: 0.5rem 0; 
+    
+    backdrop-filter: blur(10px);
 
-    p { margin: 0; }
+    .footer-grid {
+        display: flex;
+        flex-direction: column;
+        /* GAP RÉDUIT : On passe de 1.5rem à 0.5rem pour tasser les blocs */
+        gap: 0.5rem; 
+        text-align: center;
+        align-items: center;
+        padding: 0 1rem;
+    }
 
-    .grid { align-items: center; }
+    /* --- BLOC 1 : BRAND (Plus petit) --- */
+    .brand {
+        .name {
+            font-family: "Protest Revolution", sans-serif;
+            font-size: 1.4rem; /* Réduit (était 2rem) */
+            margin: 0;
+            line-height: 1.2;
+            letter-spacing: 1px;
+            color: var(--text-main);
+        }
 
-    /* Ajustement Desktop */
-    @media screen and (min-width: 750px) {
-        text-align: left;
-        .grid { display: flex; justify-content: space-between; }
-        .grid__item { flex: 1; }
-        .socials { justify-content: center; }
+        .tagline {
+            font-family: monospace;
+            font-size: 0.8rem; /* Réduit (était 1.1rem) */
+            color: var(--text-accent, #d3ad7f);
+            opacity: 0.9;
+        }
+    }
+
+    /* --- BLOC 2 : RÉSEAUX (Ultra Compact) --- */
+    .socials-compact {
+        /* ASTUCE : On cache le titre "Mes Réseaux" sur mobile pour gagner de la place */
+        h4 {
+            display: none; 
+        }
+
+        .links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 1rem; /* Réduit */
+            font-weight: 700;
+            margin-top: 0.2rem;
+
+            a {
+                color: var(--text-main);
+                text-decoration: none;
+                transition: color 0.3s;
+                text-transform: uppercase;
+
+                &:hover {
+                    color: var(--text-accent, #d3ad7f);
+                    text-decoration: underline;
+                }
+            }
+
+            .separator {
+                color: var(--text-accent, #d3ad7f);
+                opacity: 0.5;
+            }
+        }
+    }
+
+    /* --- BLOC 3 : INFO (Tech & Copy) --- */
+    .info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem; /* Très serré */
+        align-items: center;
+
+        .tech-stack {
+            font-size: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 0.3rem;
+            opacity: 0.9;
+            
+            /* On cache le texte "Coded with" si besoin de plus de place, sinon on garde */
+            span:first-child { font-size: 0.7rem; }
+
+            .badge {
+                font-size: 0.7rem; /* Badges plus petits */
+                padding: 1px 6px;
+                border: 1px solid var(--text-main);
+                border-radius: 4px;
+                font-weight: bold;
+                background: rgba(128,128,128,0.05);
+            }
+        }
+
+        .copyright {
+            font-size: 0.7rem; /* Copyright discret */
+            opacity: 0.5;
+            margin: 0;
+        }
+    }
+
+
+    /* ========================================= */
+    /* === DESKTOP (On remet tout en grand) === */
+    /* ========================================= */
+    @media screen and (min-width: 992px) {
+        padding: 1.5rem 0; /* Retour au padding confortable */
+
+        .footer-grid {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            gap: 0;
+        }
+
+        /* On rétablit les tailles Desktop */
+        .brand {
+            align-items: flex-start;
+            .name { font-size: 2.5rem; margin-bottom: 0.5rem; }
+            .tagline { font-size: 1.1rem; }
+        }
+
+        .socials-compact {
+            text-align: center;
+            /* On réaffiche le titre sur Desktop */
+            h4 { 
+                display: block; 
+                font-size: 1.1rem;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                margin-bottom: 0.5rem;
+                opacity: 0.7;
+            }
+            .links { font-size: 1.2rem; }
+        }
+
+        .info {
+            align-items: flex-end;
+            gap: 0.8rem;
+            
+            .tech-stack { 
+                justify-content: flex-end; 
+                font-size: 1rem;
+                .badge { font-size: 0.9rem; padding: 2px 8px; }
+            }
+            .copyright { font-size: 0.9rem; }
+        }
     }
 }

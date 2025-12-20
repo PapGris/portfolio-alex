@@ -1,37 +1,37 @@
-<div class="skills-container">
-    <div class="container">
+<div class="skills-wrapper">
+    
+    <div class="section-header">
+        <h2 class="section-title">Mes Compétences</h2>
+    </div>
+
+    <div class="grid">
         
-        <div class="section-header">
-            <h2 class="section-title">Mes compétences</h2>
-        </div>
+        <div class="grid__item domains"> 
+           <h3>Domaines</h3>
+           <ul class="list-unstyled">
+            <li *ngFor="let domain of data.domains">
+                <h4>{{ domain.title }}</h4>
+                <p>{{ domain.text }}</p>    
+            </li>
+           </ul>  
+        </div> 
 
-        <div class="grid">
-            
-            <div class="grid__item"> 
-               <h3>Domaines de compétences</h3>
-               <ul class="list-unstyled">
-                <li *ngFor="let domain of data.domains">
-                    <h4>{{ domain.title }}</h4>
-                    <p>{{ domain.text }}</p>    
-                </li>
-               </ul>  
-            </div> 
-
-            <div class="grid__item"> 
-               <h3>Compétences Techniques</h3>
-               
+        <div class="grid__item techs"> 
+           <h3>Techniques</h3>
+           
+           <div class="skill-group">
                <div class="skill-bar-wrapper" *ngFor="let tech of data.techs">
                    <div class="skill-info">
-                       <span>{{ tech.name }}</span>
-                       <span>{{ tech.percent }}%</span>
+                       <span class="tech-name">{{ tech.name }}</span>
+                       <span class="tech-percent">{{ tech.percent }}%</span>
                    </div>
                    <div class="progressbar">
                         <div class="bar" [style.width.%]="tech.percent"></div>
                    </div>
                </div>
+           </div>
 
-             </div>
-            
-        </div> 
-    </div>
+         </div>
+        
+    </div> 
 </div>

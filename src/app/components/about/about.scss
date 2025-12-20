@@ -1,64 +1,115 @@
 /* src/app/components/about/about.scss */
 
-// Pour s'assurer que la section a de l'espace
 :host {
     display: block;
-    padding: 5.5rem 0;
-    background-color: var(--bg-color); // Change selon le thème
+    height: 100%; /* Prend toute la hauteur de la fenêtre */
+}
+
+.about-wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center; /* Centre verticalement dans la fenêtre */
+    justify-content: center;
+}
+
+.grid {
+    display: flex;
+    flex-direction: column; /* Mobile : Colonne */
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+
+    /* Desktop : Ligne */
+    @media screen and (min-width: 992px) {
+        flex-direction: row;
+        align-items: flex-start; /* Aligné en haut */
+        justify-content: space-between;
+        gap: 4rem;
+    }
+}
+
+/* --- IMAGE --- */
+.grid__item.image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    order: 1; /* Image en premier sur mobile */
+
+    @media screen and (min-width: 992px) {
+        width: 40%;
+        order: 1; /* Image à gauche sur desktop */
+    }
+
+    img {
+        /* Forme originale conservée */
+        border-radius: 25% 25% 25% 25%;
+        
+        /* Taille adaptée à la fenêtre */
+        width: 200px;
+        height: auto;
+        object-fit: cover;
+        
+        box-shadow: 0 10px 25px var(--shadow-color);
+        transition: transform 0.5s ease;
+        border: 4px solid rgba(255,255,255,0.2);
+
+        &:hover {
+            transform: scale(1.02) rotate(2deg);
+        }
+
+        @media screen and (min-width: 992px) {
+            width: 100%;
+            max-width: 350px; /* Max pour desktop */
+        }
+    }
+}
+
+/* --- TEXTE --- */
+.grid__item.text-container {
+    width: 100%;
+    text-align: center;
+    order: 2;
+
+    @media screen and (min-width: 992px) {
+        width: 55%;
+        text-align: left;
+        order: 2;
+    }
 }
 
 .section-title {
-    margin-top: 0; // Reset car géré par le padding du host
-    font-size: 3.8rem;
+    font-family: "Protest Revolution", sans-serif; /* Même police que le Hero */
+    font-size: 3.2rem;
+    margin: 0 0 1rem 0;
     color: var(--text-main);
+    line-height: 1.1;
     
-    @media screen and (min-width: 750px) {
-        font-size: 4.8rem;
-        margin-top: 2.8rem;
+    @media screen and (min-width: 992px) {
+        font-size: 4.5rem;
     }
 }
 
-h3 {
-    font-size: 2.3rem;
-    color: var(--text-main);
+.subtitle {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-accent);
     margin-bottom: 1.5rem;
+    font-weight: 600;
 }
 
-p {
+.content p {
     font-family: "Poppins", sans-serif;
     color: var(--text-main);
     line-height: 1.6;
-}
-
-// L'image avec ton style spécifique (bordure arrondie bizarre)
-img {
-    border-radius: 25% 25% 25% 25%;
-    max-width: 100%;
-    height: auto;
-    transition: transform 0.5s ease;
-
-    &:hover {
-        transform: scale(1.02); // Petit effet au survol
-        box-shadow: 0 10px 20px var(--shadow-color);
-    }
-
-    @media screen and (min-width: 750px) {
-        margin-top: 2rem;
-    }
-}
-
-// Grille et disposition
-.grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem; // Espace entre les colonnes
-}
-
-.grid__item {
-    width: 100%;
+    font-size: 1.4rem; /* Lisible mais compact */
+    margin-bottom: 1rem;
+    opacity: 0.9;
     
-    @media screen and (min-width: 750px) {
-        max-width: 45%; // Un peu moins de 50% pour laisser de l'air avec le gap
+    /* Pour éviter les gros blocs de texte sur mobile */
+    text-align: justify; 
+    @media screen and (max-width: 991px) {
+        text-align: center;
     }
 }

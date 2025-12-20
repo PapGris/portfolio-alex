@@ -1,24 +1,131 @@
-.theme-btn {
-    background: transparent;
-    border: 2px solid var(--text-main);
-    color: var(--text-main);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+/* theme-switch.scss - MOBILE FIRST */
+
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  
+  /* --- TAILLES MOBILE (Ajustées : un peu plus gros) --- */
+  width: 66px;  /* Avant 60px */
+  height: 26px; /* Avant 24px */
+  margin: 0;
+  
+  /* Zone de clic confortable */
+  &::after {
+      content: '';
+      position: absolute;
+      top: -10px; bottom: -10px; left: -10px; right: -10px;
+      cursor: pointer;
+  }
+
+  input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* --- LE FOND (RAIL) --- */
+  .slider {
+    position: absolute;
     cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.08);
+    transition: .4s;
+    border-radius: 34px;
+    border: 1px solid rgba(var(--text-main-rgb, 47, 79, 79), 0.2);
+    
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    transition: all 0.3s ease;
+    justify-content: space-between;
+    padding: 0 3px; /* Un peu plus d'espace interne */
+    overflow: hidden;
+  }
 
-    &:hover {
-        transform: rotate(15deg) scale(1.1);
-        background: var(--text-main);
-        
-        span {
-            // Astuce : quand le fond devient foncé, on change pas la couleur de l'emoji
-            // mais filter: invert peut être utile si c'était du SVG
-        }
+  /* --- LE TEXTE --- */
+  .label-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    
+    /* Police augmentée sur mobile */
+    font-size: 0.8rem; /* Avant 0.6rem -> plus lisible */
+    letter-spacing: 0.5px;
+    
+    transition: all 0.4s ease;
+    pointer-events: none;
+    
+    /* MODE LIGHT : Couleur police principale */
+    color: var(--text-main, darkslategray); 
+    
+    /* Position Mobile Light (tenant compte du rond plus gros) */
+    padding-left: 20px; 
+    box-sizing: border-box;
+  }
+
+  /* --- LE ROND (KNOB) --- */
+  .knob {
+    position: absolute;
+    height: 20px; /* Rond plus gros (Avant 18px) */
+    width: 20px;
+    left: 3px;
+    bottom: 2px; /* Centrage visuel */
+    transition: .4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    z-index: 2;
+
+    /* MODE LIGHT : Couleur police principale */
+    background-color: var(--text-main, darkslategray);
+  }
+
+  /* ============================== */
+  /* === ÉTAT DARK MODE (Active) === */
+  /* ============================== */
+  input:checked + .slider {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--text-accent, #d3ad7f);
+    
+    .label-text {
+      color: var(--text-accent, #d3ad7f);
+      padding-left: 0;
+      padding-right: 20px; /* Décalage symétrique */
     }
+
+    .knob {
+      /* Calcul Mobile : 66px (w) - 20px (knob) - 3px (left) - 3px (marge) = 40px */
+      transform: translateX(40px); 
+      background-color: var(--text-accent, #d3ad7f);
+    }
+  }
+
+  /* ========================================= */
+  /* === DESKTOP OVERRIDES (min-width) === */
+  /* ========================================= */
+  @media screen and (min-width: 992px) {
+      /* On garde une taille confortable sur Desktop aussi */
+      width: 76px;
+      height: 28px;
+      
+      .label-text {
+          font-size: 0.9rem;
+          padding-left: 22px;
+      }
+
+      .knob {
+          width: 20px; /* Même taille de rond qu'en mobile, c'est suffisant */
+          height: 20px;
+          left: 4px;
+          bottom: 3px;
+      }
+
+      input:checked + .slider {
+          .label-text {
+              padding-right: 22px;
+          }
+          .knob {
+              transform: translateX(48px); /* 76 - 20 - 4 - 4 = 48px */
+          }
+      }
+  }
 }

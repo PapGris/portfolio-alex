@@ -1,20 +1,31 @@
-<footer>
+<footer class="footer">
     <div class="container">
-        <div class="grid">
-            <div class="grid__item">
-                <p>Alexandre Blaizot</p>
-            </div>
+        <div class="footer-grid">
             
-            <div class="grid__item">
-                 <ul class="socials list-unstyled">
-                    <li><a href="#">LN</a></li> </ul>
+            <div class="footer-item brand">
+                <h3 class="name">Alexandre Blaizot</h3>
+                <span class="tagline">&lt; Développeur Web /&gt;</span>
             </div>
 
-            <div class="grid__item">
-                <p>Copyright © {{ currentYear }} Portfolio Alex. All Rights Reserved.</p>
+            <div class="footer-item socials-compact">
+                <h4>Mes Réseaux</h4>
+                <div class="links">
+                    <a href="https://www.linkedin.com/in/blaizot-alexandre-2b08b02aa/" target="_blank">LinkedIn</a>
+                    <span class="separator">/</span>
+                    <a href="https://github.com/PapGris" target="_blank">GitHub</a>
+                </div>
             </div>
+
+            <div class="footer-item info">
+                <div class="tech-stack">
+                    <span>Coded with</span>
+                    <span class="badge">Angular</span>
+                    <span class="badge">TypeScript</span>
+                    <span class="badge">SCSS</span>
+                </div>
+                <p class="copyright">© {{ currentYear }} - Tous droits réservés.</p>
+            </div>
+
         </div>
     </div>
 </footer>
-
-<!-- TODO bien reprendre les logo reseaux -->

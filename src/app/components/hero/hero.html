@@ -1,1 +1,17 @@
-<p>hero works!</p>
+<div class="hero-wrapper">
+        <div class="grid">
+            
+            <div class="hero__item left slide-in-left">
+                <span class="subtitle">{{ subtitle }}</span>
+                <h1 class="title">{{ title }}</h1>
+                <p class="description">{{ description }}</p>
+            </div>
+
+            <div class="hero__item right slide-in-right">
+                <div class="hero__avatar">
+                    <img [src]="avatarUrl" alt="Avatar Alexandre Blaizot">
+                </div>
+            </div>
+
+        </div>
+</div>
