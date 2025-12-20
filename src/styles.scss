@@ -1,32 +1,45 @@
-/* src/styles.scss - VERSION FIXÉE */
+/* src/styles.scss - VERSION FINALE (Dots Pleins + Layout Stable) */
 
 :root {
-  /* ... Tes variables de couleurs (inchangées) ... */
+  /* --- COULEURS --- */
   --bg-color: #f4e196;
   --bg-secondary: #fdeca6;
   --bg-tertiary: #f8edc3;
+  
   --text-main: darkslategray;
   --text-accent: brown;
+  /* Pour l'effet lumineux des points (RGB de 'brown') */
+  --text-accent-glow: rgba(165, 42, 42, 0.5); 
+  
   --nav-bg: #fafbe7;
-  --card-bg: rgba(250, 251, 231, 0.90); /* Un peu plus opaque pour lisibilité */
+  --card-bg: rgba(250, 251, 231, 0.96);
   --border-color: #7c8085;
-  --shadow-color: rgba(0,0,0,0.1);
+  --shadow-color: rgba(0,0,0,0.15);
   --dot-inactive: rgba(128, 128, 128, 0.5);
   
-  /* HAUTEURS FIXES (Pour le calcul du centrage) */
+  /* --- HAUTEURS FIXES --- */
   --header-height: 80px; 
-  --footer-height: 50px;
+  --footer-height: 100px; /* Zone réservée footer mobile */
+}
+
+@media screen and (min-width: 992px) {
+    :root { 
+        --footer-height: 80px; /* Footer Desktop */
+    }
 }
 
 [data-theme="dark"] {
-  /* ... Tes variables Dark Mode (inchangées) ... */
   --bg-color: #121212;
   --bg-secondary: #1e1e1e;
   --bg-tertiary: #252525;
   --text-main: #e0e0e0;
+  
   --text-accent: #ffb74d;
+  /* Pour l'effet lumineux des points (RGB de '#ffb74d') */
+  --text-accent-glow: rgba(255, 183, 77, 0.5);
+  
   --nav-bg: #121212;
-  --card-bg: rgba(30, 30, 30, 0.90);
+  --card-bg: rgba(30, 30, 30, 0.96);
   --border-color: #444;
   --shadow-color: rgba(0,0,0,0.5);
   --dot-inactive: rgba(255, 255, 255, 0.3);
@@ -34,33 +47,49 @@
 
 * { box-sizing: border-box; }
 
-html {
-  font-size: 62.5%;
-  scroll-snap-type: y mandatory;
-  timeline-scope: --section-hero, --section-about, --section-services, --section-skills, --section-portfolio, --section-contact;
+/* 1. MOTEUR APP */
+html, body {
+  margin: 0; padding: 0;
+  width: 100%; height: 100%;
+  overflow: hidden; 
+  font-family: 'Poppins', sans-serif;
+  font-size: 62.5%; 
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.6rem;
-  margin: 0;
+  font-size: 1.6rem; 
   background-color: var(--bg-color);
   color: var(--text-main);
-  transition: background-color 0.3s, color 0.3s;
-  min-height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 
-/* --- LE RAIL --- */
+/* 2. ZONE DE SCROLL CENTRALE */
+.main-scroller {
+  display: block;
+  position: absolute;
+  top: var(--header-height);
+  bottom: var(--footer-height);
+  left: 0; 
+  right: 0;
+  
+  overflow-y: scroll;
+  overflow-x: hidden;
+  
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  
+  timeline-scope: --section-hero, --section-about, --section-services, --section-skills, --section-portfolio, --section-contact;
+}
+
+/* 3. SECTIONS */
 .scroll-section {
-  height: 100vh;
-  width: 100%;
+  height: 100%; width: 100%;
   scroll-snap-align: start;
   scroll-snap-stop: always;
+  position: relative;
+  pointer-events: none; 
 }
 
-/* TIMELINES (Inchangées) */
+/* Timeline IDs */
 #hero { view-timeline: --section-hero block; }
 #about { view-timeline: --section-about block; }
 #services { view-timeline: --section-services block; }
@@ -68,39 +97,70 @@ body {
 #portfolio { view-timeline: --section-portfolio block; }
 #contact { view-timeline: --section-contact block; }
 
-
-/* --- LE WRAPPER ANIMÉ (CORRECTIF CENTRAGE) --- */
+/* 4. WRAPPER (Conteneur) */
 .sticky-wrapper {
-  position: fixed;
-  top: 0; left: 0;
+  position: sticky; 
+  top: 0; 
   width: 100%; height: 100%;
   
-  /* On utilise le padding pour définir la zone "sûre" entre header et footer */
-  padding-top: var(--header-height);
-  padding-bottom: var(--footer-height);
+  display: flex; 
+  align-items: flex-end; /* Mobile : collé au footer */
+  justify-content: center;
   
-  display: flex;
-  align-items: center; /* Centre verticalement dans la zone sûre */
+  /* Marges Mobile : on décale à gauche pour les dots */
+  padding: 10px 35px 10px 10px; 
   
-  /* Sur Mobile : On aligne à gauche pour laisser place aux dots à droite */
-  justify-content: flex-start; 
-  padding-left: 20px; /* Marge gauche */
-
-  pointer-events: none; 
-  opacity: 0; visibility: hidden;
-  animation: appear-disappear linear both;
-  z-index: 10; /* Sous le header/footer (1010) mais sur le fond */
+  animation: fade-effect linear both;
+  z-index: 10;
+  pointer-events: none;
 }
 
-/* Desktop : On recentre tout parfaitement */
 @media screen and (min-width: 992px) {
-    .sticky-wrapper {
-        justify-content: center; /* Centré horizontalement */
-        padding-left: 0;
-    }
+    .sticky-wrapper { 
+        padding: 0; 
+        align-items: center; /* Desktop : centré verticalement */
+    } 
 }
 
-/* LIAISONS ANIMATIONS (Inchangées) */
+/* 5. LA FENÊTRE */
+.window-card {
+  pointer-events: auto;
+  width: 100%; 
+  /* Mobile : Maximisé (100% de l'espace dispo) */
+  height: 100%; 
+  
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 5px 20px var(--shadow-color);
+  
+  overflow: hidden; 
+  display: flex; flex-direction: column; justify-content: center; 
+  padding: 1.5rem;
+}
+
+@media screen and (min-width: 992px) {
+  .window-card {
+    width: 80%; 
+    max-width: 1100px; 
+    /* Desktop : Flottant (85%) */
+    height: 85%; 
+    max-height: 800px;
+    padding: 3rem; 
+    border-radius: 20px;
+  }
+}
+
+/* 6. ANIMATION D'APPARITION */
+@keyframes fade-effect {
+  0% { opacity: 0; transform: scale(0.95); }
+  15% { opacity: 1; transform: scale(1); }
+  85% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.05); }
+}
+
+/* Liaisons Animation Wrapper */
 #hero .sticky-wrapper      { animation-timeline: --section-hero; }
 #about .sticky-wrapper     { animation-timeline: --section-about; }
 #services .sticky-wrapper  { animation-timeline: --section-services; }
@@ -108,111 +168,59 @@ body {
 #portfolio .sticky-wrapper { animation-timeline: --section-portfolio; }
 #contact .sticky-wrapper   { animation-timeline: --section-contact; }
 
-
-/* --- LA FENÊTRE (CORRECTIF MOBILE) --- */
-.window-card {
-  pointer-events: auto;
-  
-  /* MOBILE : On réduit la largeur pour ne pas toucher les dots à droite */
-  width: calc(100% - 60px); /* 100% - place pour les dots */
-  max-width: 500px; /* Limite la largeur sur tablette */
-  
-  height: 100%; /* Remplit l'espace vertical disponible (défini par le padding du wrapper) */
-  max-height: 75vh; /* Sécurité pour ne pas être trop grand */
-  
-  padding: 1.5rem;
-  
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 15px;
-  
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 10px 30px var(--shadow-color);
-  overflow-y: auto; 
-  
-  &::-webkit-scrollbar { width: 4px; }
-  &::-webkit-scrollbar-thumb { background-color: var(--text-accent); border-radius: 10px; }
-}
-
-/* DESKTOP : Fenêtre large et centrée */
-@media screen and (min-width: 992px) {
-  .window-card {
-    width: 80%;
-    max-width: 1200px;
-    height: 85%; /* Hauteur relative à la zone sûre */
-    padding: 4rem;
-    border-radius: 20px;
-    
-    /* Scrollbar un peu plus large */
-    &::-webkit-scrollbar { width: 6px; }
-  }
-}
-
-/* --- ANIMATION (Inchangée) --- */
-@keyframes appear-disappear {
-  0% { opacity: 0; transform: scale(0.95) translateY(30px); visibility: hidden; }
-  20%, 80% { opacity: 1; transform: scale(1) translateY(0); visibility: visible; }
-  100% { opacity: 0; transform: scale(1.05) translateY(-30px); visibility: hidden; }
-}
-
-/* --- NAVIGATION DOTS --- */
+/* 7. DOTS DE NAVIGATION */
 .nav-dots {
-    position: fixed;
-    top: 50%;
-    right: 15px; /* Collé à droite */
+    position: fixed; 
+    top: 50%; 
+    right: 5px; 
     transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    z-index: 1000;
-    padding: 8px;
-    
-    background: rgba(var(--nav-bg-rgb, 128,128,128), 0.1);
+    display: flex; flex-direction: column; gap: 12px;
+    z-index: 1005; padding: 6px;
+    background: rgba(var(--nav-bg-rgb, 128,128,128), 0.2);
     border-radius: 20px;
-    backdrop-filter: blur(5px);
 }
-
 .dot-link {
-    display: block;
-    width: 10px; height: 10px; /* Un peu plus petits sur mobile */
-    border-radius: 50%;
-    background-color: var(--dot-inactive);
-    transition: all 0.2s;
-    position: relative;
-    cursor: pointer;
-    
-    /* Tooltip caché sur mobile pour éviter la pollution visuelle */
-    &::after { display: none; }
+    display: block; width: 12px; height: 12px; 
+    border-radius: 50%; background-color: var(--dot-inactive);
+    transition: all 0.2s; cursor: pointer;
 }
 
-/* Desktop : Dots plus grands + Tooltips */
+/* --- OVERRIDES DESKTOP (Gros Dots centrés) --- */
 @media screen and (min-width: 992px) {
-    .nav-dots { right: 25px; gap: 20px; padding: 15px; }
-    .dot-link { width: 12px; height: 12px; }
-    
-    .dot-link::after {
-        content: attr(aria-label);
-        display: block;
-        position: absolute;
-        right: 30px; top: 50%;
-        transform: translateY(-50%) translateX(10px);
-        background: var(--text-main); color: var(--bg-color);
-        padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;
-        opacity: 0; pointer-events: none; white-space: nowrap; transition: all 0.3s;
+    .nav-dots { 
+        right: 50px; /* Décollé du bord */
+        gap: 25px;   /* Plus espacé */
+        padding: 15px; 
+        border-radius: 30px;
     }
-    .dot-link:hover::after { opacity: 1; transform: translateY(-50%) translateX(0); }
+    .dot-link { 
+        width: 16px; height: 16px; /* Plus gros */
+    }
 }
 
-/* ANIMATION DOTS (Inchangée) */
-.dot-hero      { animation: dot-active linear both; animation-timeline: --section-hero; }
-.dot-about     { animation: dot-active linear both; animation-timeline: --section-about; }
-.dot-services  { animation: dot-active linear both; animation-timeline: --section-services; }
-.dot-skills    { animation: dot-active linear both; animation-timeline: --section-skills; }
+/* Animation Dots */
+.dot-hero { animation: dot-active linear both; animation-timeline: --section-hero; }
+.dot-about { animation: dot-active linear both; animation-timeline: --section-about; }
+.dot-services { animation: dot-active linear both; animation-timeline: --section-services; }
+.dot-skills { animation: dot-active linear both; animation-timeline: --section-skills; }
 .dot-portfolio { animation: dot-active linear both; animation-timeline: --section-portfolio; }
-.dot-contact   { animation: dot-active linear both; animation-timeline: --section-contact; }
+.dot-contact { animation: dot-active linear both; animation-timeline: --section-contact; }
 
+/* ANIMATION DOTS (PLEIN & LUMINEUX) */
 @keyframes dot-active {
-    0%, 100% { background-color: var(--dot-inactive); transform: scale(1); }
-    45%, 55% { background-color: transparent; border: 2px solid var(--text-accent); transform: scale(1.5); box-shadow: inset 0 0 0 2px var(--text-accent); }
+    0%, 100% { 
+        background-color: var(--dot-inactive); 
+        transform: scale(1); 
+        box-shadow: none;
+    }
+    
+    /* État actif : Rempli + Halo */
+    20%, 80% { 
+        background-color: var(--text-accent); /* Couleur pleine */
+        transform: scale(1.5); /* Agrandissement */
+        box-shadow: 0 0 10px var(--text-accent-glow); /* Halo lumineux */
+    }
 }
+
+.list-unstyled { list-style: none; padding: 0; margin: 0; }
+a { text-decoration: none; color: inherit; }

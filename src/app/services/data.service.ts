@@ -12,7 +12,7 @@ export class DataService {
     subtitle: "Qui suis-je ?",
     paragraph1: `Vous l'aurez compris, je suis en pleine phase d'apprentissage dans le milieu du <strong>développement Web</strong>, suite à une <strong>reconversion professionnelle</strong>. En effet, je suis de base diplômé en aménagement paysager. Un monde totalement différent me direz vous ! Et vous avez bien raison ! Cependant, mon attrait pour la nature et l'environnement n'a pour autant jamais perturbé la passion que j'ai depuis tout petit pour le monde du numérique, du dessin, et de la création.`,
     paragraph2: `Tout au long de ma vie, j'ai travaillé dans différents domaines (paysagisme, maraîchage, vente, restauration, déménagement, social, formation en milieu pénitentiaire...) Jusqu'a ce que je décide qu'apres toutes ces expériences, il était grand temps de suivre enfin ma voie, celle de l'informatique ! <strong>Et puisqu'il n'y a pas d'âge pour se relancer</strong>... Me voici apprenti développeur Web !!`,
-    imgProfile: "assets/img/avatar.png"
+    imgProfile: "assets/img/person.jpg"
   };
 
   // --- 2. Données SERVICES (Ajoute bien cette partie ici, fermée par des accolades séparées) ---
