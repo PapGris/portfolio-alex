@@ -1,65 +1,83 @@
-/* src/app/components/about/about.scss */
+/* src/app/components/about/about.scss - DESKTOP RAPPROCHÉ & MOBILE OPTIMISÉ */
 
 :host {
     display: block;
-    height: 100%; /* Prend toute la hauteur de la fenêtre */
+    width: 100%;
+    height: 100%;
 }
 
 .about-wrapper {
+    width: 100%;
     height: 100%;
+    
     display: flex;
-    align-items: center; /* Centre verticalement dans la fenêtre */
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    
+    overflow: hidden; 
 }
 
 .grid {
     display: flex;
-    flex-direction: column; /* Mobile : Colonne */
+    flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    justify-content: center; 
+    
     width: 100%;
+    height: 100%;
+    gap: 1.5vh; 
 
-    /* Desktop : Ligne */
+    /* --- DESKTOP : RECENTRAGE --- */
     @media screen and (min-width: 992px) {
         flex-direction: row;
-        align-items: flex-start; /* Aligné en haut */
-        justify-content: space-between;
-        gap: 4rem;
+        
+        /* On groupe tout au centre au lieu d'espacer */
+        justify-content: center; 
+        
+        /* Espace réduit entre les deux blocs */
+        gap: 5rem; 
+        
+        align-items: center; 
     }
 }
 
 /* --- IMAGE --- */
 .grid__item.image-container {
+    flex: 0 0 auto; 
     width: 100%;
     display: flex;
     justify-content: center;
-    order: 1; /* Image en premier sur mobile */
+    align-items: center;
+    order: 1; 
 
     @media screen and (min-width: 992px) {
-        width: 40%;
-        order: 1; /* Image à gauche sur desktop */
+        /* On réduit la largeur du conteneur */
+        width: 35%;
+        /* IMPORTANT : On colle l'image vers la droite (vers le texte) */
+        justify-content: flex-end; 
     }
 
     img {
-        /* Forme originale conservée */
-        border-radius: 25% 25% 25% 25%;
-        
-        /* Taille adaptée à la fenêtre */
-        width: 200px;
-        height: auto;
-        object-fit: cover;
-        
-        box-shadow: 0 10px 25px var(--shadow-color);
+        border-radius: 20px; 
+        border: 4px solid var(--text-accent);
+        box-shadow: 0 5px 25px var(--shadow-color);
         transition: transform 0.5s ease;
-        border: 4px solid rgba(255,255,255,0.2);
 
-        &:hover {
-            transform: scale(1.02) rotate(2deg);
-        }
+        object-fit: contain; 
+        width: auto; 
+        height: auto;
 
+        /* Mobile : Image plus petite comme demandé */
+        max-height: 25vh; 
+        max-width: 80%; 
+
+        &:hover { transform: scale(1.02) rotate(1deg); }
+
+        /* Desktop */
         @media screen and (min-width: 992px) {
-            width: 100%;
-            max-width: 350px; /* Max pour desktop */
+            max-height: 400px; 
+            max-width: 100%;
         }
     }
 }
@@ -69,18 +87,27 @@
     width: 100%;
     text-align: center;
     order: 2;
+    flex: 1 1 auto;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    
+    overflow: hidden; 
 
     @media screen and (min-width: 992px) {
-        width: 55%;
+        /* Largeur ajustée pour le centrage */
+        width: 50%;
         text-align: left;
-        order: 2;
+        align-items: flex-start;
     }
 }
 
 .section-title {
-    font-family: "Protest Revolution", sans-serif; /* Même police que le Hero */
-    font-size: 3.2rem;
-    margin: 0 0 1rem 0;
+    font-family: "Protest Revolution", sans-serif;
+    font-size: clamp(2.5rem, 4vh, 3.5rem);
+    margin: 0 0 0.5vh 0;
     color: var(--text-main);
     line-height: 1.1;
     
@@ -91,25 +118,50 @@
 
 .subtitle {
     font-family: "Poppins", sans-serif;
-    font-size: 1.4rem;
+    font-size: clamp(0.9rem, 1.5vh, 1.2rem);
     text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--text-accent);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1vh;
     font-weight: 600;
 }
 
-.content p {
-    font-family: "Poppins", sans-serif;
-    color: var(--text-main);
-    line-height: 1.6;
-    font-size: 1.4rem; /* Lisible mais compact */
-    margin-bottom: 1rem;
-    opacity: 0.9;
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    width: 100%;
     
-    /* Pour éviter les gros blocs de texte sur mobile */
-    text-align: justify; 
-    @media screen and (max-width: 991px) {
+    p {
+        font-family: "Poppins", sans-serif;
+        color: var(--text-main);
+        line-height: 1.5;
+        
+        /* Mobile : Texte plus gros comme demandé */
+        font-size: clamp(1.1rem, 1.8vh, 1.3rem);
+        
+        margin: 0;
+        opacity: 0.95;
+        
         text-align: center;
+        
+        @media screen and (min-width: 992px) { 
+            text-align: justify;
+        }
+
+        display: -webkit-box;
+        -webkit-line-clamp: 5; 
+        line-clamp: 5; 
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    @media screen and (min-width: 992px) {
+        p { 
+            -webkit-line-clamp: unset; 
+            line-clamp: unset;
+            font-size: 1.5rem; 
+            line-height: 1.6;
+        }
     }
 }

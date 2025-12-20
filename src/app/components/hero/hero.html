@@ -1,17 +1,17 @@
 <div class="hero-wrapper">
-        <div class="grid">
-            
-            <div class="hero__item left slide-in-left">
-                <span class="subtitle">{{ subtitle }}</span>
-                <h1 class="title">{{ title }}</h1>
-                <p class="description">{{ description }}</p>
-            </div>
-
-            <div class="hero__item right slide-in-right">
-                <div class="hero__avatar">
-                    <img [src]="avatarUrl" alt="Avatar Alexandre Blaizot">
-                </div>
-            </div>
-
+    <div class="grid">
+        
+        <div class="hero__item left slide-in-left">
+            <span class="subtitle">{{ hero.subtitle }}</span>
+            <h1 class="title">{{ hero.title }}</h1>
+            <p class="description">{{ hero.description }}</p>
         </div>
+
+        <div class="hero__item right slide-in-right">
+            <div class="hero__avatar">
+                <img [src]="hero.avatarUrl" alt="Avatar Alexandre Blaizot">
+            </div>
+        </div>
+
+    </div>
 </div>

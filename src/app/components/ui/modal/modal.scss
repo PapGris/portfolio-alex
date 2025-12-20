@@ -1,25 +1,26 @@
+/* src/app/components/ui/modal/modal.scss */
+
 .modal {
     visibility: hidden;
     opacity: 0;
     position: fixed;
-    z-index: 2000; // Au-dessus de tout (même du header)
+    z-index: 2000;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8); // Fond sombre semi-transparent
-    backdrop-filter: blur(5px); // Petit effet de flou moderne
-    transition: all 0.5s;
-    overflow: hidden; // Pour gérer le scroll interne
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px;
+    transition: all 0.3s ease;
 
     &.show {
         visibility: visible;
         opacity: 1;
         
-        // Animation d'entrée du contenu
         .modal__content {
             transform: scale(1);
             opacity: 1;
@@ -28,84 +29,125 @@
 }
 
 .modal__content {
-    background-color: var(--bg-color);
+    background-color: var(--card-bg);
     color: var(--text-main);
     width: 100%;
-    height: 100%; // Plein écran sur mobile
-    padding: 5rem 1rem;
-    overflow-y: auto; // Scroll interne si le contenu est long
-    text-align: left;
+    max-width: 850px;
+    max-height: 85vh; 
+    border-radius: 20px;
+    overflow-y: auto;
     position: relative;
-    transition: all 0.5s;
-    
-    // Sur Desktop, on fait une fenêtre plus petite
-    @media screen and (min-width: 750px) {
-        width: 80%;
-        height: auto;
-        max-height: 90vh;
-        border-radius: 10px;
-        padding: 3rem;
-        transform: scale(0.7); // Départ de l'animation (plus petit)
-        opacity: 0;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+}
+
+/* --- BOUTON FERMER (Version Flottante que tu préférais) --- */
+.modal__close {
+    position: fixed; /* Reste à la même place par rapport à l'écran */
+    top: 25px;
+    right: 25px;
+    background: var(--text-main);
+    color: var(--bg-color);
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2100; /* Toujours au-dessus du contenu de la modale */
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+
+    &:hover {
+        background: var(--text-accent);
+        transform: rotate(90deg) scale(1.1);
+        color: white;
+    }
+
+    @media screen and (max-width: 991px) {
+        /* Un peu plus petit sur mobile pour ne pas être trop envahissant */
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 2.2rem;
     }
 }
 
-.modal__close {
-    position: absolute;
-    right: 2rem;
-    top: 2rem;
-    background: transparent;
-    border: none;
-    font-size: 4rem;
-    color: white; // Toujours blanc car sur le fond sombre
-    cursor: pointer;
-    z-index: 2001;
-    transition: transform 0.3s;
+/* --- RESTE DU CONTENU --- */
+.grid {
+    display: flex;
+    flex-direction: column;
 
-    &:hover {
-        transform: rotate(90deg);
-        color: var(--text-accent);
+    @media screen and (min-width: 992px) {
+        flex-direction: row;
+        gap: 2rem;
     }
-    
-    // Sur desktop, comme le fond est blanc, on change la couleur
-    @media screen and (min-width: 750px) {
-        color: var(--text-main);
-        top: 1rem;
-        right: 1rem;
+}
+
+.grid__item {
+    width: 100%;
+
+    @media screen and (min-width: 992px) {
+        width: 50%;
+    }
+
+    img {
+        width: 100%;
+        height: 180px; 
+        object-fit: cover;
+        border-radius: 20px 20px 0 0;
+
+        @media screen and (min-width: 992px) {
+            height: auto;
+            border-radius: 12px;
+            margin: 2rem;
+        }
+    }
+}
+
+.modal__info {
+    padding: 1.5rem;
+
+    @media screen and (min-width: 992px) {
+        padding: 3rem;
     }
 }
 
 .modal__title {
-    margin: 0 0 2rem;
+    margin: 0 0 1rem;
     font-family: "Protest Revolution", sans-serif;
-    font-size: 3rem;
-    text-transform: uppercase;
+    font-size: 2.2rem;
+    color: var(--text-main);
+
+    @media screen and (min-width: 992px) {
+        font-size: 3.5rem;
+    }
 }
 
 .h3 {
-    font-size: 2rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    text-transform: uppercase;
     color: var(--text-accent);
-}
-
-img {
-    margin-bottom: 2rem;
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px var(--shadow-color);
+    margin: 1.5rem 0 0.5rem;
+    font-weight: 700;
 }
 
 .meta-info {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
     display: flex;
     align-items: center;
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-    
-    .icon {
-        margin-right: 1rem;
-    }
+    opacity: 0.8;
 }
 
 .tech-list {
@@ -113,28 +155,18 @@ img {
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 6px;
 
     li {
-        background: var(--bg-tertiary);
-        padding: 0.5rem 1rem;
+        background: rgba(var(--nav-bg-rgb, 128,128,128), 0.1);
+        padding: 2px 10px;
         border-radius: 4px;
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: var(--text-main);
+        font-size: 0.85rem;
     }
 }
 
-// Mise en page Grid (copiée de ton layout)
-.grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
-
-.grid__item {
-    width: 100%;
-    @media screen and (min-width: 750px) {
-        max-width: 48%; // Moitié-Moitié
-    }
+p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    opacity: 0.85;
 }

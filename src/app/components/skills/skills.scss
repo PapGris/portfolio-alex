@@ -1,131 +1,227 @@
-/* src/app/components/skills/skills.scss */
+/* src/app/components/skills/skills.scss - NO SCROLL STRICT */
 
 :host {
     display: block;
+    width: 100%;
     height: 100%;
 }
 
 .skills-wrapper {
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    overflow: hidden; 
 }
 
 /* --- HEADER --- */
-.section-title {
+.section-header {
     text-align: center;
+    flex: 0 0 auto;
+    width: 100%;
+    margin-bottom: 1vh; 
+}
+
+.section-title {
     font-family: "Protest Revolution", sans-serif;
-    font-size: 3.2rem;
-    margin: 0 0 2rem 0;
+    font-size: clamp(2rem, 3.5vh, 3rem);
+    margin: 0;
     color: var(--text-main);
+    line-height: 1;
     
     @media screen and (min-width: 992px) {
         font-size: 4.5rem;
-        margin-bottom: 3rem;
+        margin-bottom: 2rem; /* Plus d'espace sous le titre sur PC */
     }
 }
 
-/* --- GRILLE --- */
+/* --- GRILLE PRINCIPALE --- */
 .grid {
     display: flex;
-    flex-direction: column; /* Mobile : Colonne */
-    gap: 3rem;
+    flex-direction: column;
+    width: 100%;
+    flex: 1 1 auto; 
+    min-height: 0; 
+    gap: 1vh; 
     
     @media screen and (min-width: 992px) {
-        flex-direction: row; /* Desktop : Ligne */
-        justify-content: space-between;
-        align-items: flex-start;
+        flex-direction: row;
+        justify-content: center; /* Centrage des colonnes */
+        align-items: stretch; /* Les colonnes prennent la même hauteur */
+        gap: 6rem; /* Plus d'espace entre les deux blocs */
+        width: 90%;
     }
 }
 
 .grid__item {
     width: 100%;
+    flex: 1 1 50%; 
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
     
     @media screen and (min-width: 992px) {
-        width: 48%; /* Moitié moitié avec un petit écart */
+        width: 45%;
+        justify-content: flex-start;
     }
 }
 
 h3 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
+    font-size: clamp(1.2rem, 2vh, 1.6rem);
+    margin-bottom: 0.5vh;
     text-transform: uppercase;
     font-family: "Protest Revolution", sans-serif;
     color: var(--text-accent);
     border-bottom: 1px solid rgba(128,128,128,0.2);
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.2vh;
     display: inline-block;
+    flex: 0 0 auto;
+
+    @media screen and (min-width: 992px) {
+        font-size: 2.2rem; /* Titre Domaines/Techniques bien visible */
+        margin-bottom: 2rem;
+        padding-bottom: 0.5rem;
+    }
 }
 
-/* --- LISTE DOMAINES (Gauche) --- */
+/* --- GAUCHE : LISTE DOMAINES --- */
 .list-unstyled {
     list-style: none;
     padding: 0; margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    height: 100%; 
+    overflow: hidden;
 
     li {
-        /* Fond semi-transparent pour l'effet fenêtre */
         background: rgba(var(--nav-bg-rgb, 128,128,128), 0.05);
         border-left: 3px solid var(--text-accent);
-        
-        padding: 1rem 1.5rem;
-        margin-bottom: 1rem;
-        border-radius: 0 8px 8px 0;
-        transition: transform 0.3s ease, background 0.3s;
-
-        &:hover {
-            transform: translateX(5px);
-            background: rgba(var(--nav-bg-rgb, 128,128,128), 0.1);
-        }
+        padding: 0.5vh 1vh; 
+        border-radius: 0 6px 6px 0;
+        margin-bottom: 0.5vh; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1 1 auto;
+        min-height: 0;
 
         h4 {
-            margin: 0 0 0.3rem;
-            font-size: 1.6rem;
+            margin: 0;
+            font-size: clamp(1rem, 1.6vh, 1.2rem);
             font-family: "Poppins", sans-serif;
             font-weight: 700;
             color: var(--text-main);
+            line-height: 1.2;
         }
 
         p {
             margin: 0;
-            font-size: 1.3rem;
+            font-size: clamp(0.85rem, 1.3vh, 1rem);
             font-family: "Poppins", sans-serif;
             opacity: 0.8;
-            line-height: 1.4;
+            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
+    }
+    
+    @media screen and (min-width: 992px) {
+         justify-content: flex-start;
+         gap: 2rem;
+         li { 
+             padding: 1.5rem 2rem; 
+             margin-bottom: 0;
+             flex: 0 0 auto;
+             border-left-width: 5px;
+
+             h4 {
+                 font-size: 1.8rem; /* Titre du domaine boosté */
+                 margin-bottom: 0.5rem;
+             }
+
+             p {
+                 font-size: 1.4rem; /* Texte du domaine boosté */
+                 line-height: 1.5;
+                 -webkit-line-clamp: 3; 
+                 line-clamp: 3; 
+                 opacity: 0.9;
+             }
+         }
     }
 }
 
-/* --- BARRES TECHNIQUES (Droite) --- */
+/* --- DROITE : BARRES TECHNIQUES --- */
+.techs {
+    margin-top: 1vh;
+    @media screen and (min-width: 992px) { margin-top: 0; }
+}
+
+.skill-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    height: 100%; 
+    width: 100%;
+    overflow: hidden;
+
+    @media screen and (min-width: 992px) {
+        justify-content: flex-start;
+        gap: 2.5rem; /* Plus d'espace entre les barres sur PC */
+    }
+}
+
 .skill-bar-wrapper {
-    margin-bottom: 1.8rem;
+    width: 100%;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 3vh;
+
+    @media screen and (min-width: 992px) {
+        flex: 0 0 auto;
+    }
 }
 
 .skill-info {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.2vh; 
     font-family: "Poppins", sans-serif;
     font-weight: 600;
-    font-size: 1.4rem;
+    font-size: clamp(0.9rem, 1.5vh, 1.2rem);
     color: var(--text-main);
+
+    @media screen and (min-width: 992px) {
+        font-size: 1.6rem; /* Nom techno et % boostés */
+        margin-bottom: 1rem;
+    }
 }
 
 .progressbar {
-    background: rgba(128, 128, 128, 0.2); /* Fond de barre discret */
-    height: 10px; /* Un peu plus fin et élégant */
+    background: rgba(128, 128, 128, 0.2); 
+    height: 0.6vh; 
+    min-height: 4px; max-height: 8px;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+
+    @media screen and (min-width: 992px) {
+        height: 12px; /* Barre plus épaisse sur PC */
+        max-height: none;
+    }
 }
 
 .bar {
-    background: var(--text-accent); /* Couleur Thème */
+    background: var(--text-accent); 
     height: 100%;
     width: 0;
-    transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1); /* Animation fluide */
+    transition: width 1s ease; 
     border-radius: 10px;
-    
-    /* Petit dégradé sympa */
-    background: linear-gradient(90deg, var(--text-accent) 0%, rgba(var(--text-accent), 0.8) 100%);
 }

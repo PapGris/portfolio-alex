@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+// src/app/components/hero/hero.ts
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DataService } from '../../services/data.service'; // Vérifie bien le chemin
 
 @Component({
   selector: 'app-hero',
@@ -9,10 +11,8 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./hero.scss']
 })
 export class Hero {
-  title = "Salut ! C'est moi, Alexandre Blaizot.";
-  subtitle = "Apprenti développeur Web";
-  description = "Je suis un apprenti développeur, en reconversion professionnelle. Et oui ! Il n'y a pas d'âge ou de moment précis pour décider de vivre de sa passion.";
+  private dataService = inject(DataService);
   
-  // Attention : Assure-toi que ton image est bien dans ce dossier
-  avatarUrl = "assets/img/avatar.png"; 
+  // On lie les propriétés du composant aux données du service
+  hero = this.dataService.heroData;
 }

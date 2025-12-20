@@ -1,95 +1,133 @@
-/* src/app/components/services/services.scss */
+/* src/app/components/services/services.scss - MODE "FIT TO SCREEN" */
 
 :host {
     display: block;
+    width: 100%;
     height: 100%;
 }
 
 .services-wrapper {
+    width: 100%;
     height: 100%;
+    
+    /* Flex column pour empiler Header + Grille */
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centre verticalement si peu de contenu */
-    /* Pas de background, c'est la fenêtre qui gère */
+    justify-content: center;
+    align-items: center;
+    
+    /* Sécurité : pas de débordement */
+    overflow: hidden; 
 }
 
-/* --- EN-TÊTE --- */
+/* --- EN-TÊTE (Compact) --- */
 .section-header {
     text-align: center;
-    margin-bottom: 3rem;
+    /* Marge fluide : se réduit sur petit écran */
+    margin-bottom: 2vh; 
+    flex: 0 0 auto; /* Ne rétrécit pas */
+    width: 100%;
+    max-width: 800px;
+    padding: 0 1rem;
     
     .intro-text p {
         font-family: "Poppins", sans-serif;
-        font-size: 1.4rem;
-        max-width: 700px;
+        /* Taille fluide */
+        font-size: clamp(0.9rem, 1.5vh, 1.2rem);
         margin: 0 auto;
         color: var(--text-main);
         opacity: 0.9;
-        line-height: 1.6;
+        line-height: 1.4;
+        
+        /* Coupe le texte d'intro s'il est trop long (max 3 lignes) */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 }
 
 .section-title {
     font-family: "Protest Revolution", sans-serif;
-    font-size: 3.2rem;
-    margin: 0 0 1.5rem 0;
+    font-size: clamp(2.5rem, 4vh, 3.5rem);
+    margin: 0 0 0.5vh 0; /* Très peu de marge */
     color: var(--text-main);
+    line-height: 1.1;
     
     @media screen and (min-width: 992px) {
         font-size: 4.5rem;
+        margin-bottom: 1rem;
     }
 }
 
-/* --- GRILLE --- */
+/* --- GRILLE (Flexible) --- */
 .grid {
     display: flex;
-    flex-direction: column; /* Mobile : liste verticale */
-    gap: 2rem;
+    /* Mobile : Colonne verticale */
+    flex-direction: column; 
+    /* Gap fluide : se réduit si l'écran est petit */
+    gap: 1.5vh; 
+    
+    width: 100%;
+    /* Permet à la grille de rétrécir si besoin, mais pas trop */
+    flex: 1 1 auto;
+    /* Important pour le flex nested : permet de réduire en dessous de la taille du contenu */
+    min-height: 0; 
+    
+    justify-content: center; /* Centre les cartes verticalement */
     
     /* Desktop : Grille 2 colonnes */
     @media screen and (min-width: 992px) {
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: center;
+        align-content: center; /* Centre le bloc de cartes */
+        gap: 2rem;
+        width: 90%;
     }
 }
 
 .grid__item {
     width: 100%;
+    /* Permet de rétrécir */
+    flex: 0 1 auto; 
     
     @media screen and (min-width: 992px) {
-        /* Calcul pour 2 colonnes avec le gap */
+        /* Desktop : 2 par ligne */
         width: calc(50% - 1rem); 
     }
 }
 
-/* --- CARTE SERVICE --- */
+/* --- CARTE SERVICE (Compacte) --- */
 .service-card {
     display: flex;
-    flex-direction: column; /* Mobile : icône au dessus */
+    /* Mobile : Ligne (Icône à gauche, Texte à droite) pour gagner de la place verticale */
+    flex-direction: row; 
     align-items: center;
-    text-align: center;
+    text-align: left;
     
-    padding: 2rem;
+    /* Padding fluide */
+    padding: 1.5vh; 
     border-radius: 12px;
     
-    /* Petit fond subtil pour détacher la carte du fond de la fenêtre */
     background: rgba(var(--nav-bg-rgb, 128,128,128), 0.05);
     border: 1px solid rgba(128,128,128, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    /* Hauteur max pour forcer le compactage */
+    max-height: 100%; 
 
     &:hover {
-        transform: translateY(-5px);
+        transform: translateY(-3px);
         box-shadow: 0 5px 15px var(--shadow-color);
         border-color: var(--text-accent);
     }
     
-    /* Desktop : alignement horizontal */
     @media screen and (min-width: 992px) {
-        flex-direction: row;
-        text-align: left;
-        align-items: flex-start;
-        padding: 1.5rem;
+        padding: 2rem;
+        /* Desktop : On peut repasser en colonne si on veut, 
+           mais garder 'row' est souvent plus joli et constant. 
+           Gardons 'row' pour l'élégance. */
     }
 }
 
@@ -98,50 +136,80 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 70px;
-    height: 70px;
-    margin-bottom: 1.5rem;
+    
+    /* Taille fluide */
+    width: 6vh; 
+    height: 6vh;
+    min-width: 40px; min-height: 40px; /* Sécurité */
+    max-width: 70px; max-height: 70px;
+    
+    margin-right: 1.5vh; /* Espace à droite */
     flex-shrink: 0;
 
-    border: 2px solid var(--text-accent); /* Bordure colorée */
+    border: 2px solid var(--text-accent);
     border-radius: 50%;
     background: rgba(255,255,255,0.05);
 
     @media screen and (min-width: 992px) {
+        width: 70px; height: 70px;
         margin-right: 2rem;
-        margin-bottom: 0;
-        width: 80px;
-        height: 80px;
     }
 
     svg {
-        height: 35px;
-        width: 35px;
-        fill: var(--text-accent); /* L'icône prend la couleur Accent (Jaune/Marron) */
+        height: 50%; /* 50% du cercle */
+        width: 50%;
+        fill: var(--text-accent);
         transition: transform 0.3s ease;
     }
 }
 
-/* Effet hover sur la carte anime l'icône */
 .service-card:hover .service__icon svg {
     transform: scale(1.1) rotate(10deg);
 }
 
 /* --- CONTENU --- */
 .service__content {
+    /* Empêche le texte de pousser la largeur */
+    flex: 1;
+    min-width: 0; 
+    
     h3 {
-        margin: 0 0 0.8rem 0;
-        font-size: 2rem;
+        margin: 0 0 0.5vh 0;
+        /* Titre adaptatif */
+        font-size: clamp(1.1rem, 2vh, 1.6rem);
         font-family: "Poppins", sans-serif;
         font-weight: 700;
         color: var(--text-main);
+        
+        /* Coupe le titre sur 1 ligne si besoin */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     p {
         margin: 0;
-        font-size: 1.4rem;
-        line-height: 1.5;
+        /* Texte compact */
+        font-size: clamp(0.85rem, 1.4vh, 1.1rem);
+        line-height: 1.3;
         color: var(--text-main);
         opacity: 0.8;
+        
+        /* SÉCURITÉ : Coupe le texte à 2 ou 3 lignes max */
+        display: -webkit-box;
+        -webkit-line-clamp: 2; 
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    @media screen and (min-width: 992px) {
+        h3 { font-size: 1.8rem; margin-bottom: 0.8rem; white-space: normal;}
+        p { 
+            font-size: 1.3rem; 
+            -webkit-line-clamp: 3; 
+            line-clamp: 3;
+            line-height: 1.5;
+        }
     }
 }
