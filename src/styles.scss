@@ -54,7 +54,19 @@ body {
   font-size: 1.6rem; 
   background-color: var(--bg-color);
   color: var(--text-main);
-}
+  background-image: 
+      linear-gradient(rgba(202, 130, 21, 0.22) 1.5px, transparent 1.5px),
+      linear-gradient(90deg, rgba(202, 130, 21, 0.22) 1.5px, transparent 1.5px);
+    background-size: 60px 60px;
+    background-attachment: fixed;
+  }
+
+  /* Optionnel : Si tu veux que la grille soit plus visible en mode Dark */
+  [data-theme="dark"] body {
+    background-image: 
+      linear-gradient(rgba(255, 183, 77, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 183, 77, 0.1) 1px, transparent 1px);
+  }
 
 /* 2. ZONE DE SCROLL CENTRALE */
 .main-scroller {
