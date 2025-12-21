@@ -1,0 +1,13 @@
+<div class="specs-wrapper">
+    <div class="section-header">
+        <h2 class="section-title">Mes Domaines</h2>
+    </div>
+    <div class="specs-content">
+        <ul class="list-unstyled">
+            <li *ngFor="let domain of data">
+                <h4>{{ domain.title }}</h4>
+                <p>{{ domain.text }}</p>
+            </li>
+        </ul>
+    </div>
+</div>

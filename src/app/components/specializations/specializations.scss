@@ -1,0 +1,83 @@
+/* specializations.scss */
+:host {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.specs-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; // Centre verticalement dans la carte
+    padding: 1rem;
+
+    @media screen and (min-width: 992px) {
+        padding: 2rem;
+    }
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3vh;
+
+    .section-title {
+        font-family: "Protest Revolution", sans-serif;
+        font-size: clamp(2.2rem, 4vh, 3.5rem);
+        color: var(--text-main);
+        margin: 0;
+
+        :host-context([data-theme="dark"]) & {
+            color: var(--text-accent);
+        }
+    }
+}
+
+.list-unstyled {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vh; // Espace entre les domaines
+    max-width: 700px;
+    margin: 0 auto;
+    width: 100%;
+
+    li {
+        background: rgba(var(--nav-bg-rgb, 128, 128, 128), 0.05);
+        border-left: 4px solid var(--text-accent);
+        padding: 0.9rem 1.2rem;
+        border-radius: 0 10px 10px 0;
+        transition: transform 0.3s ease;
+
+        h4 {
+            font-family: "Poppins", sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.2rem, 2vh, 1.6rem);
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        p {
+            font-family: "Poppins", sans-serif;
+            font-size: clamp(0.9rem, 1.5vh, 1.1rem);
+            line-height: 1.5;
+            color: var(--text-main);
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        &:hover {
+            transform: translateX(5px);
+            background: rgba(var(--text-accent-rgb), 0.08);
+        }
+    }
+
+    @media screen and (min-width: 992px) {
+        gap: 2.5rem;
+        li {
+            padding: 1.5rem 2rem;
+            h4 { font-size: 2.2rem; }
+            p { font-size: 1.5rem; }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+<div class="stack-wrapper">
+    <div class="section-header">
+        <h3 class="stack-title">Stack Technique</h3>
+    </div>
+    <div class="skills-grid">
+        <div class="skill-icon-card" *ngFor="let tech of techs">
+            <div class="icon-box">
+                <svg [attr.viewBox]="tech.viewBox" xmlns="http://www.w3.org/2000/svg">
+                    <path [attr.d]="tech.iconPath" fill="currentColor" />
+                </svg>
+            </div>
+            <span>{{ tech.name }}</span>
+        </div>
+    </div>
+</div>

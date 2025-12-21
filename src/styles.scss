@@ -1,4 +1,4 @@
-/* src/styles.scss - VERSION FINALE (Dots Pleins + Layout Stable) */
+/* src/styles.scss - VERSION CORRIGÉE (Specs & Stack Intégrés) */
 
 :root {
   /* --- COULEURS --- */
@@ -8,7 +8,6 @@
   
   --text-main: darkslategray;
   --text-accent: #ca8215;
-  /* Pour l'effet lumineux des points (RGB de 'brown') */
   --text-accent-glow: rgba(165, 42, 42, 0.5); 
   
   --nav-bg: #fafbe7;
@@ -17,14 +16,13 @@
   --shadow-color: rgba(0,0,0,0.15);
   --dot-inactive: rgba(128, 128, 128, 0.5);
   
-  /* --- HAUTEURS FIXES --- */
   --header-height: 80px; 
-  --footer-height: 100px; /* Zone réservée footer mobile */
+  --footer-height: 100px; 
 }
 
 @media screen and (min-width: 992px) {
     :root { 
-        --footer-height: 80px; /* Footer Desktop */
+        --footer-height: 80px; 
     }
 }
 
@@ -33,11 +31,8 @@
   --bg-secondary: #1e1e1e;
   --bg-tertiary: #252525;
   --text-main: #e0e0e0;
-  
   --text-accent: #ffb74d;
-  /* Pour l'effet lumineux des points (RGB de '#ffb74d') */
   --text-accent-glow: rgba(255, 183, 77, 0.5);
-  
   --nav-bg: #121212;
   --card-bg: rgba(30, 30, 30, 0.96);
   --border-color: #444;
@@ -47,7 +42,6 @@
 
 * { box-sizing: border-box; }
 
-/* 1. MOTEUR APP */
 html, body {
   margin: 0; padding: 0;
   width: 100%; height: 100%;
@@ -70,14 +64,13 @@ body {
   bottom: var(--footer-height);
   left: 0; 
   right: 0;
-  
   overflow-y: scroll;
   overflow-x: hidden;
-  
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   
-  timeline-scope: --section-hero, --section-about, --section-services, --section-skills, --section-portfolio, --section-contact;
+  /* AJOUT : --section-specs et --section-stack */
+  timeline-scope: --section-hero, --section-about, --section-services, --section-specs, --section-stack, --section-portfolio, --section-contact;
 }
 
 /* 3. SECTIONS */
@@ -89,27 +82,24 @@ body {
   pointer-events: none; 
 }
 
-/* Timeline IDs */
+/* Timeline IDs : Remplacement de #skills par #specs et #stack */
 #hero { view-timeline: --section-hero block; }
 #about { view-timeline: --section-about block; }
 #services { view-timeline: --section-services block; }
-#skills { view-timeline: --section-skills block; }
+#specs { view-timeline: --section-specs block; }
+#stack { view-timeline: --section-stack block; }
 #portfolio { view-timeline: --section-portfolio block; }
 #contact { view-timeline: --section-contact block; }
 
-/* 4. WRAPPER (Conteneur) */
+/* 4. WRAPPER */
 .sticky-wrapper {
   position: sticky; 
   top: 0; 
   width: 100%; height: 100%;
-  
   display: flex; 
-  align-items: flex-end; /* Mobile : collé au footer */
+  align-items: flex-end; 
   justify-content: center;
-  
-  /* Marges Mobile : on décale à gauche pour les dots */
   padding: 10px 35px 10px 10px; 
-  
   animation: fade-effect linear both;
   z-index: 10;
   pointer-events: none;
@@ -118,7 +108,7 @@ body {
 @media screen and (min-width: 992px) {
     .sticky-wrapper { 
         padding: 0; 
-        align-items: center; /* Desktop : centré verticalement */
+        align-items: center; 
     } 
 }
 
@@ -126,15 +116,12 @@ body {
 .window-card {
   pointer-events: auto;
   width: 100%; 
-  /* Mobile : Maximisé (100% de l'espace dispo) */
   height: 100%; 
-  
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 16px;
   backdrop-filter: blur(5px);
   box-shadow: 0 5px 20px var(--shadow-color);
-  
   overflow: hidden; 
   display: flex; flex-direction: column; justify-content: center; 
   padding: 1.5rem;
@@ -144,7 +131,6 @@ body {
   .window-card {
     width: 80%; 
     max-width: 1100px; 
-    /* Desktop : Flottant (85%) */
     height: 85%; 
     max-height: 800px;
     padding: 3rem; 
@@ -160,11 +146,12 @@ body {
   100% { opacity: 0; transform: scale(1.05); }
 }
 
-/* Liaisons Animation Wrapper */
+/* Liaisons Animation Wrapper : Mise à jour avec les nouveaux IDs */
 #hero .sticky-wrapper      { animation-timeline: --section-hero; }
 #about .sticky-wrapper     { animation-timeline: --section-about; }
 #services .sticky-wrapper  { animation-timeline: --section-services; }
-#skills .sticky-wrapper    { animation-timeline: --section-skills; }
+#specs .sticky-wrapper     { animation-timeline: --section-specs; }
+#stack .sticky-wrapper     { animation-timeline: --section-stack; }
 #portfolio .sticky-wrapper { animation-timeline: --section-portfolio; }
 #contact .sticky-wrapper   { animation-timeline: --section-contact; }
 
@@ -185,40 +172,37 @@ body {
     transition: all 0.2s; cursor: pointer;
 }
 
-/* --- OVERRIDES DESKTOP (Gros Dots centrés) --- */
 @media screen and (min-width: 992px) {
     .nav-dots { 
-        right: 50px; /* Décollé du bord */
-        gap: 25px;   /* Plus espacé */
+        right: 50px; 
+        gap: 25px;   
         padding: 15px; 
         border-radius: 30px;
     }
     .dot-link { 
-        width: 16px; height: 16px; /* Plus gros */
+        width: 16px; height: 16px; 
     }
 }
 
-/* Animation Dots */
-.dot-hero { animation: dot-active linear both; animation-timeline: --section-hero; }
-.dot-about { animation: dot-active linear both; animation-timeline: --section-about; }
-.dot-services { animation: dot-active linear both; animation-timeline: --section-services; }
-.dot-skills { animation: dot-active linear both; animation-timeline: --section-skills; }
+/* Animation Dots : Mise à jour avec les nouveaux IDs */
+.dot-hero      { animation: dot-active linear both; animation-timeline: --section-hero; }
+.dot-about     { animation: dot-active linear both; animation-timeline: --section-about; }
+.dot-services  { animation: dot-active linear both; animation-timeline: --section-services; }
+.dot-specs     { animation: dot-active linear both; animation-timeline: --section-specs; }
+.dot-stack     { animation: dot-active linear both; animation-timeline: --section-stack; }
 .dot-portfolio { animation: dot-active linear both; animation-timeline: --section-portfolio; }
-.dot-contact { animation: dot-active linear both; animation-timeline: --section-contact; }
+.dot-contact   { animation: dot-active linear both; animation-timeline: --section-contact; }
 
-/* ANIMATION DOTS (PLEIN & LUMINEUX) */
 @keyframes dot-active {
     0%, 100% { 
         background-color: var(--dot-inactive); 
         transform: scale(1); 
         box-shadow: none;
     }
-    
-    /* État actif : Rempli + Halo */
     20%, 80% { 
-        background-color: var(--text-accent); /* Couleur pleine */
-        transform: scale(1.5); /* Agrandissement */
-        box-shadow: 0 0 10px var(--text-accent-glow); /* Halo lumineux */
+        background-color: var(--text-accent); 
+        transform: scale(1.5); 
+        box-shadow: 0 0 10px var(--text-accent-glow); 
     }
 }
 

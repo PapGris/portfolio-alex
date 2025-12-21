@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { Hero } from '../../hero/hero';
 import { About } from '../../about/about';
 import { Services } from '../../services/services';
-import { Skills } from '../../skills/skills';
+import { Specializations } from '../../specializations/specializations'; 
+import { TechStack } from '../../tech-stack/tech-stack';
 import { Portfolio } from '../../portfolio/portfolio';
 import { Contact } from '../../contact/contact';
 
@@ -14,7 +15,8 @@ import { Contact } from '../../contact/contact';
     Hero, 
     About, 
     Services, 
-    Skills, 
+    Specializations, // Ajouté
+    TechStack,       // Ajouté
     Portfolio, 
     Contact
   ],
