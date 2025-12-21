@@ -1,22 +1,16 @@
 <div class="portfolio-wrapper">
     
     <div class="section-header">
-        <h2 class="section-title">Portfolio</h2>
+        <h2 class="section-title">Mes Projets</h2>
     </div>
 
     <div class="filters-container">
         <ul class="portfolio-filters">
             <li>
-                <button (click)="setFilter('all')" [class.active]="currentFilter === 'all'">Tout</button>
-            </li>
-            <li>
                 <button (click)="setFilter('web')" [class.active]="currentFilter === 'web'">Web</button>
             </li>
             <li>
                 <button (click)="setFilter('design')" [class.active]="currentFilter === 'design'">Design</button>
-            </li>
-            <li>
-                <button (click)="setFilter('life')" [class.active]="currentFilter === 'life'">Parcours</button>
             </li>
         </ul>
     </div>

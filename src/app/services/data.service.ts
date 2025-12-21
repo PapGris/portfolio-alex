@@ -95,60 +95,91 @@ export class DataService {
   };
 
   projects = [
-    {
-      id: 1,
-      title: "Portfolio",
-      category: "web", 
-      categoryDisplay: "Portfolio", 
-      image: "assets/img/avatarportfolio.png",
-      description: "Ma première réalisation !",
-      year: "2024",
-      techs: ["HTML", "CSS", "JavaScript"],
-      fullDescription: "Vous l'aurez deviné, le Portfolio sur lequel vous naviguez, c'est bien ma première réalisation Web. Réalisé lors de ma formation Num&Boost."
-    },
-    {
-      id: 2,
-      title: "Dessins",
-      category: "design",
-      categoryDisplay: "Dessins sur supports papier ou numérique",
-      image: "assets/img/dessin4.png",
-      description: "Dessins sur supports papier ou numérique",
-      year: "2005 - 2024",
-      techs: ["Papier", "Paint3D", "GIMP", "Autodesk SketchBook"],
-      fullDescription: "Voici quelques petits exemples de dessins que j'ai réalisés au fil des années. Certains sont totalement sur papiers, d'autres sont parfois légèrement modifiés sur logiciels."
-    },
-    {
-      id: 3,
-      title: "Parcours Pro",
-      category: "life",
-      categoryDisplay: "CV",
-      image: "assets/img/monparcours.png",
-      description: "Mon Parcours",
-      year: "1993 - 2024",
-      techs: ["Vie", "Expérience", "Travail"],
-      fullDescription: "Afin de connaître mon parcours scolaire et professionnel, je mets ici mon CV à votre disposition."
-    },
-    {
-      id: 4,
-      title: "Logos et enseignes",
-      category: "design",
-      categoryDisplay: "Créations pour des enseignes ou autres",
-      image: "assets/img/logo1.png",
-      description: "Logos et enseignes",
-      year: "2020 - 2024",
-      techs: ["GIMP", "Paint3D", "Autodesk SketchBook"],
-      fullDescription: "Voici quelques réalisations personnelles de dessins pouvant servir d'enseignes ou de logos pour des logiciels, marques ou entreprises."
-    },
-    {
+      {
+        id: 1,
+        title: "Les Mondes de Papillon Gris",
+        category: "web", 
+        categoryDisplay: "Site de JDR", 
+        image: "assets/img/jdr.png", // Pense à ajouter tes captures d'écran
+        description: "Univers artistique personnel",
+        year: "2024",
+        techs: ["HTML", "SCSS", "JavaScript"],
+        url: "https://www.les-mondes-de-papillon-gris.com/",
+        fullDescription: "Plateforme complète présentant mon univers artistique. Un projet axé sur l'immersion visuelle et l'identité de marque."
+      },
+      {
+        id: 2,
+        title: "Click & Chill",
+        category: "web",
+        categoryDisplay: "Application Web",
+        image: "assets/img/candc.png",
+        description: "Projet collaboratif de divertissement",
+        year: "2024",
+        techs: ["GitHub Pages", "JavaScript", "API"],
+        url: "https://evalutation-ablaizot-zbeouche.github.io/Click-Chill/",
+        fullDescription: "Une application interactive permettant de trouver son film, sa serie ou son anim en un clic. Réalisée dans le cadre d'une évaluation technique."
+      },
+      {
+        id: 3,
+        title: "Carpool",
+        category: "web",
+        categoryDisplay: "Développement Web",
+        image: "assets/img/carpool.png",
+        description: "Projet de formation intensive",
+        year: "2024",
+        techs: ["PHP", "SQL", "Tailwind"],
+        url: "https://dw2024-alexandre.stagiairesmns.fr/",
+        fullDescription: "Développement d'un site web de covoiturage avec gestion de base de données et logique métier backend. Dans le cadre de l'optention de mon titre professionnel developpemeur web."
+      },
+      {
+        id: 4,
+        title: "Concept Logo Design",
+        category: "design",
+        categoryDisplay: "Identité Visuelle",
+        image: "assets/img/logo1.png", // Image principale pour la carte de la grille
+        images: [
+          "assets/img/logo1.png",
+          "assets/img/logo 2.png",
+          "assets/img/logo3.png",
+        ],
+        description: "Création graphique",
+        year: "2024",
+        techs: ["Support Papier","GIMP", "Figma", "Autodesk Sketchbook"],
+        fullDescription: "Recherches graphiques et création de logos pour diverses enseignes imaginaires ou réelles. Ce projet regroupe mes travaux sur l'équilibre des formes et le choix des palettes chromatiques."
+      },
+      {
       id: 5,
-      title: "Futur projet",
-      category: "web",
-      categoryDisplay: "En attente...",
-      image: "https://picsum.photos/600/400?random=5", 
-      description: "Projet à venir",
-      year: "2025",
-      techs: ["Angular", "Node.js"],
-      fullDescription: "Un futur projet incroyable arrive bientôt."
+      title: "Réalisations Figma",
+      category: "design",
+      categoryDisplay: "Design Numérique",
+      image: "assets/img/afficheCine.png", // Ta miniature principale
+      images: [
+        "assets/img/afficheCine.png",
+      ],
+      description: "Affiches et Publicités",
+      year: "2024 - 2025",
+      techs: ["Figma", "UI/UX", "Compo Graphique"],
+      fullDescription: "Conception de supports de communication variés. De l'affiche publicitaire à la maquette d'interface utilisateur, j'utilise Figma pour donner vie à des concepts visuels modernes."
+    },
+    {
+      id: 6,
+      title: "Dessins Traditionnels",
+      category: "design",
+      categoryDisplay: "Art Papier",
+      image: "assets/img/dessin4.png",
+      images: [
+        "assets/img/dessin1.png",
+        "assets/img/dessin2.png",
+        "assets/img/dessin3.png",
+        "assets/img/dessin4.png",
+        "assets/img/dessin5.png",
+        "assets/img/dessin6.png"
+      ],
+      description: "Crayonnés et Encres",
+      year: "2005 - 2024",
+      techs: ["Papier", "Crayon", "Encre", "Feutres"],
+      fullDescription: "Une sélection de mes dessins réalisés sur support physique. Cette pratique me permet de cultiver mon sens du détail et de la composition avant de passer au numérique."
     }
+      // Tu pourras en ajouter d'autres ici pour la partie Design !
   ];
 }

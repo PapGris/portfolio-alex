@@ -1,4 +1,4 @@
-/* src/app/components/portfolio/portfolio.scss - NO SCROLL STRICT */
+/* src/app/components/portfolio/portfolio.scss */
 
 :host {
     display: block;
@@ -11,185 +11,202 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    
-    /* Interdiction de scroller l'entièreté du composant */
-    overflow: hidden; 
+    padding: 0.5rem; 
+    overflow: hidden; /* Interdiction de scroller le composant */
+
+    @media screen and (min-width: 992px) {
+        padding: 2rem;
+        justify-content: center; 
+    }
 }
 
 /* --- HEADER --- */
 .section-header {
     text-align: center;
     flex: 0 0 auto;
-    margin-bottom: 1vh;
+    margin-bottom: 0.5vh;
+
+    @media screen and (min-width: 992px) {
+        margin-bottom: 2vh;
+    }
 }
 
 .section-title {
     font-family: "Protest Revolution", sans-serif;
-    font-size: clamp(2.2rem, 4vh, 3.5rem);
+    font-size: clamp(1.8rem, 3.5vh, 2.2rem);
     margin: 0;
     color: var(--text-main);
-    line-height: 1;
-    
+
     @media screen and (min-width: 992px) {
         font-size: 4.5rem;
-        margin-bottom: 1.5rem;
     }
 }
 
-/* --- FILTRES (Ultra compacts sur mobile) --- */
+/* --- FILTRES (WEB & DESIGN UNIQUEMENT) --- */
 .filters-container {
-    margin-bottom: 1.5vh;
-    display: flex;
-    justify-content: center;
+    margin-bottom: 2vh;
     flex: 0 0 auto;
-    width: 100%;
-}
+    
+    .portfolio-filters {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        gap: 1.2rem;
+        padding: 0;
 
-.portfolio-filters {
-    list-style: none;
-    padding: 0; margin: 0;
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
+        @media screen and (min-width: 992px) {
+            gap: 2rem;
+        }
 
-    button {
-        background: transparent;
-        border: 1px solid var(--border-color);
-        color: var(--text-main);
-        
-        /* Taille bouton réduite pour mobile */
-        padding: 0.4rem 1rem;
-        font-size: clamp(0.8rem, 1.2vh, 1rem);
-        
-        border-radius: 50px;
-        font-family: "Poppins", sans-serif;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        font-weight: 600;
+        button {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            
+            /* MOBILE : Boutons agrandis */
+            padding: 0.8rem 2rem; 
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
 
-        &.active {
-            background: var(--text-accent);
-            border-color: var(--text-accent);
-            color: #fff;
+            /* DESKTOP : Boutons encore plus gros */
+            @media screen and (min-width: 992px) {
+                padding: 1rem 3.5rem;
+                font-size: 1.6rem;
+                border-width: 2px;
+            }
+
+            &.active {
+                background: var(--text-accent);
+                border-color: var(--text-accent);
+                color: white;
+            }
+
+            &:hover {
+                border-color: var(--text-accent);
+                color: var(--text-accent);
+            }
         }
     }
-    
-    @media screen and (min-width: 992px) {
-        gap: 1rem;
-        button { padding: 0.6rem 1.5rem; font-size: 1.2rem; }
-    }
 }
 
-/* --- GRILLE PROJETS (S'adapte à la hauteur) --- */
+/* --- GRILLE --- */
 .projects-grid {
-    display: grid;
-    /* Mobile : 2 colonnes forcées pour gagner de la place verticale */
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1vh;
-    
     width: 100%;
     flex: 1 1 auto;
-    min-height: 0; /* Important pour ne pas forcer le scroll */
-    
-    /* On autorise un scroll INTERNE uniquement à la grille si trop de projets */
-    /* C'est le seul endroit où le scroll est toléré si le filtre renvoie bcp d'items */
-    overflow-y: auto;
-    scrollbar-width: none;
-    &::-webkit-scrollbar { display: none; }
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 colonnes sur mobile */
+    grid-auto-rows: min-content;
+    gap: 0.8vh;
+    overflow: hidden;
+    padding-top: 10px;
 
     @media screen and (min-width: 992px) {
         grid-template-columns: repeat(3, 1fr);
-        gap: 2rem;
-        padding: 1rem;
-        align-content: start;
+        max-width: 1200px;
+        gap: 2.5rem;
     }
 }
 
 /* --- CARTE PROJET --- */
 .project-card {
-    background: rgba(var(--nav-bg-rgb, 128,128,128), 0.05);
-    border-radius: 10px;
+    background: rgba(var(--nav-bg-rgb, 128, 128, 128), 0.05);
+    border: 1px solid rgba(128, 128, 128, 0.1);
+    border-radius: 8px;
     overflow: hidden;
-    border: 1px solid rgba(128,128,128,0.1);
     display: flex;
     flex-direction: column;
-    
-    /* Hauteur fluide basée sur la zone dispo */
-    height: auto;
-    max-height: 25vh; 
+    max-height: 20vh;
+    border: 1px solid var(--text-accent); /* Reste compact pour tout voir d'un coup */
 
-    &:hover {
-        .card-media img { transform: scale(1.05); }
+    @media screen and (min-width: 992px) {
+        border-radius: 15px;
+        max-height: 40vh;
+        transition: transform 0.3s ease;
+        &:hover {
+            transform: translateY(-8px);
+            border-color: var(--text-accent);
+        }
     }
 }
 
 .card-media {
     position: relative;
-    /* On réduit drastiquement la hauteur de l'image sur mobile */
-    height: 12vh;
-    min-height: 80px;
-    overflow: hidden;
-    flex: 0 0 auto;
+    height: 10vh;
+    cursor: pointer;
+
+    @media screen and (min-width: 992px) {
+        height: 200px;
+    }
 
     img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.5s ease;
     }
 
     .overlay {
         position: absolute;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.5);
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
         display: flex;
         align-items: center;
         justify-content: center;
-        opacity: 1; /* Visible sur mobile pour faciliter le clic modale */
-        cursor: pointer;
-
-        .plus-icon {
-            font-size: 2rem;
-            color: white;
+        opacity: 0;
+        transition: 0.3s;
+        
+        .plus-icon { 
+            color: white; 
+            font-size: 1.5rem; 
+            @media screen and (min-width: 992px) { font-size: 3rem; }
         }
     }
     
     @media screen and (min-width: 992px) {
-        height: 180px;
-        .overlay { opacity: 0; .plus-icon { font-size: 3rem; } }
         &:hover .overlay { opacity: 1; }
     }
 }
 
 .card-info {
-    padding: 0.8vh;
+    padding: 0.4rem;
     text-align: center;
-    flex: 1 1 auto;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
 
+    @media screen and (min-width: 992px) {
+        padding: 1.5rem;
+    }
+
     .category {
         display: block;
-        font-size: clamp(0.7rem, 1vh, 0.9rem);
-        text-transform: uppercase;
+        font-size: 0.65rem;
         color: var(--text-accent);
-        font-family: "Poppins", sans-serif;
+        text-transform: uppercase;
+
+        @media screen and (min-width: 992px) {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
     }
 
     h3 {
         margin: 0;
-        font-size: clamp(0.9rem, 1.4vh, 1.2rem);
+        font-size: 0.8rem;
         color: var(--text-main);
-        font-family: "Poppins", sans-serif;
-        font-weight: 600;
-        
-        /* Coupe le texte s'il est trop long */
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        @media screen and (min-width: 992px) {
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
     }
 }

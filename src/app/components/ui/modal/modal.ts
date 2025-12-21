@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,20 +9,35 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./modal.scss']
 })
 export class Modal {
-  // On reçoit le projet à afficher depuis le parent (Portfolio)
-  @Input() project: any = null;
+  @ViewChild('modalContent') modalContent!: ElementRef;
   
-  // On reçoit l'état d'ouverture (vrai/faux)
-  @Input() isOpen = false;
+  private _isOpen = false;
 
-  // On envoie un événement au parent pour dire "Ferme-moi !"
+  @Input() project: any = null;
+
+  @Input() 
+  set isOpen(value: boolean) {
+    this._isOpen = value;
+    // Si on ouvre la modale, on remonte tout en haut
+    if (value) {
+      setTimeout(() => {
+        if (this.modalContent) {
+          this.modalContent.nativeElement.scrollTop = 0;
+        }
+      }, 0);
+    }
+  }
+
+  get isOpen(): boolean {
+    return this._isOpen;
+  }
+
   @Output() close = new EventEmitter<void>();
 
   onClose() {
     this.close.emit();
   }
 
-  // Empêche la fermeture si on clique SUR le contenu (et pas à côté)
   stopPropagation(event: Event) {
     event.stopPropagation();
   }

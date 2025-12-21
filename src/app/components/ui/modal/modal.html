@@ -1,42 +1,45 @@
 <div class="modal" [class.show]="isOpen" (click)="onClose()">
-    
-    <button class="modal__close" (click)="onClose()">&times;</button>
-
-    <div class="modal__content" (click)="stopPropagation($event)">
+    <div class="modal__content" (click)="stopPropagation($event)" #modalContent>
         
-        <div class="container" *ngIf="project">
-            <div class="grid">
-                
-                <div class="grid__item">
-                    <img [src]="project.image" [alt]="project.title">
-                    </div>
+        <button class="modal__close" (click)="onClose()">&times;</button>
 
-                <div class="grid__item">
-                    <h4 class="modal__title h2">{{ project.title }}</h4>
-                    
-                    <p class="meta-info">
-                        <span class="icon">📅</span>
-                        <i>Année : {{ project.year }}</i>
-                    </p>
-                    
-                    <p class="meta-info">
-                        <span class="icon">🏷️</span>
-                        {{ project.categoryDisplay }}
-                    </p>
-
-                    <h5 class="h3">Informations</h5>
-                    <p>{{ project.fullDescription }}</p>
-
-                    <h5 class="h3">Technologies :</h5>
-                    <ul class="tech-list">
-                        <li *ngFor="let tech of project.techs">{{ tech }}</li>
-                    </ul>
-                    
-                </div>
-
-            </div>
+        <div class="scroll-indicator" *ngIf="project">
+            <span>Scroll pour voir les images</span>
+            <div class="arrow"></div>
         </div>
 
+        <div class="grid" *ngIf="project">
+            
+            <div class="grid__item image-box" [class.gallery-mode]="project.images && project.images.length > 1">
+                <div class="gallery-container" *ngIf="project.images; else singleImage">
+                    <img *ngFor="let img of project.images" [src]="img" class="gallery-img">
+                </div>
+                <ng-template #singleImage>
+                    <img [src]="project.image" class="main-img">
+                </ng-template>
+            </div>
+
+            <div class="grid__item info-box">
+                <h4 class="modal__title">{{ project.title }}</h4>
+                
+                <div class="meta-container">
+                    <span class="meta">📅 {{ project.year }}</span>
+                    <span class="meta">🏷️ {{ project.categoryDisplay }}</span>
+                </div>
+                
+                <h5 class="h3">Description</h5>
+                <p class="description">{{ project.fullDescription }}</p>
+
+                <h5 class="h3">Technologies</h5>
+                <ul class="tech-list">
+                    <li *ngFor="let tech of project.techs">{{ tech }}</li>
+                </ul>
+
+                <div *ngIf="project.url" class="action">
+                    <a [href]="project.url" target="_blank" class="btn-visit">Voir le projet</a>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
-
