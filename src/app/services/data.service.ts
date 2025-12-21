@@ -97,6 +97,18 @@ export class DataService {
   projects = [
       {
         id: 1,
+        title: "Portfolio Professionnel",
+        category: "web",
+        categoryDisplay: "Développement Web",
+        image: "assets/img/portfolio.png", // Une capture de ton site actuel
+        description: "Design & Développement",
+        year: "2025",
+        techs: ["Angular 18", "SCSS", "TypeScript", "UI/UX"],
+        fullDescription: "Conception et réalisation de mon portfolio personnel. L'objectif était de créer une interface immersive typée 'système d'exploitation' tout en garantissant une navigation fluide et responsive. Travail approfondi sur les animations, les modales personnalisées et l'architecture des composants.",
+        url: "https://papgris.github.io/portfolio-alex/" // Ton lien de déploiement
+      },
+      {
+        id: 2,
         title: "Les Mondes de Papillon Gris",
         category: "web", 
         categoryDisplay: "Site de JDR", 
@@ -108,7 +120,7 @@ export class DataService {
         fullDescription: "Plateforme complète présentant mon univers artistique. Un projet axé sur l'immersion visuelle et l'identité de marque."
       },
       {
-        id: 2,
+        id: 3,
         title: "Click & Chill",
         category: "web",
         categoryDisplay: "Application Web",
@@ -120,7 +132,7 @@ export class DataService {
         fullDescription: "Une application interactive permettant de trouver son film, sa serie ou son anim en un clic. Réalisée dans le cadre d'une évaluation technique."
       },
       {
-        id: 3,
+        id: 4,
         title: "Carpool",
         category: "web",
         categoryDisplay: "Développement Web",
@@ -132,7 +144,7 @@ export class DataService {
         fullDescription: "Développement d'un site web de covoiturage avec gestion de base de données et logique métier backend. Dans le cadre de l'optention de mon titre professionnel developpemeur web."
       },
       {
-        id: 4,
+        id: 5,
         title: "Concept Logo Design",
         category: "design",
         categoryDisplay: "Identité Visuelle",
@@ -148,7 +160,7 @@ export class DataService {
         fullDescription: "Recherches graphiques et création de logos pour diverses enseignes imaginaires ou réelles. Ce projet regroupe mes travaux sur l'équilibre des formes et le choix des palettes chromatiques."
       },
       {
-      id: 5,
+      id: 6,
       title: "Réalisations Figma",
       category: "design",
       categoryDisplay: "Design Numérique",
@@ -162,7 +174,7 @@ export class DataService {
       fullDescription: "Conception de supports de communication variés. De l'affiche publicitaire à la maquette d'interface utilisateur, j'utilise Figma pour donner vie à des concepts visuels modernes."
     },
     {
-      id: 6,
+      id: 7,
       title: "Dessins Traditionnels",
       category: "design",
       categoryDisplay: "Art Papier",
