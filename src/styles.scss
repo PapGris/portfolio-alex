@@ -19,8 +19,7 @@
   --header-height: 80px; 
   --footer-height: 100px; 
 
-  /* --- TYPOGRAPHIE FLUIDE (NOUVEAU) --- */
-  /* S'adapte proportionnellement entre mobile et desktop */
+  /* --- TYPOGRAPHIE FLUIDE --- */
   --font-main-title: clamp(2.8rem, 8vw, 5.5rem);
   --font-section-title: clamp(2.2rem, 6vh, 4.5rem);
   --font-body: clamp(1.4rem, 2vw, 1.8rem);
@@ -47,8 +46,8 @@
 }
 
 /* --- POINTS DE RUPTURE SASS --- */
-$mobile-large: 481px;  /* iPhone Pro Max, Pixel XL */
-$tablet: 768px;        /* iPad */
+$mobile-large: 481px;  
+$tablet: 768px;        
 $desktop: 992px;
 
 * { box-sizing: border-box; }
@@ -70,13 +69,13 @@ body {
       linear-gradient(90deg, rgba(202, 130, 21, 0.22) 1.5px, transparent 1.5px);
     background-size: 60px 60px;
     background-attachment: fixed;
-  }
+}
 
-  [data-theme="dark"] body {
+[data-theme="dark"] body {
     background-image: 
       linear-gradient(rgba(255, 183, 77, 0.1) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 183, 77, 0.1) 1px, transparent 1px);
-  }
+}
 
 /* 2. ZONE DE SCROLL CENTRALE */
 .main-scroller {
@@ -90,7 +89,6 @@ body {
   overflow-x: hidden;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  
   timeline-scope: --section-hero, --section-about, --section-services, --section-specs, --section-stack, --section-portfolio, --section-contact;
 }
 
@@ -117,7 +115,7 @@ body {
   top: 0; 
   width: 100%; height: 100%;
   display: flex; 
-  align-items: flex-end; 
+  align-items: center; /* Centré verticalement pour appliquer la marge haut/bas */
   justify-content: center;
   padding: 10px 35px 10px 10px; 
   animation: fade-effect linear both;
@@ -129,7 +127,6 @@ body {
 @media screen and (min-width: #{$mobile-large}) {
     .sticky-wrapper { 
         padding: 0;
-        align-items: center; 
     } 
 }
 
@@ -137,14 +134,16 @@ body {
 .window-card {
   pointer-events: auto;
   width: 100%; 
-  height: 100%; 
+  height: 96%; /* Ajustement : Décolle du header/footer sur petit mobile */
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 16px;
   backdrop-filter: blur(5px);
   box-shadow: 0 5px 20px var(--shadow-color);
   overflow: hidden; 
-  display: flex; flex-direction: column; justify-content: center; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
   padding: 1.5rem;
 
   /* iPhone Pro Max & Tablettes */
