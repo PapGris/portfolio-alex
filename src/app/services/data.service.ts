@@ -104,7 +104,7 @@ export class DataService {
         description: "Design & Développement",
         year: "2025",
         techs: ["Angular 18", "SCSS", "TypeScript", "UI/UX"],
-        fullDescription: "Conception et réalisation de mon portfolio personnel. L'objectif était de créer une interface immersive typée 'système d'exploitation' tout en garantissant une navigation fluide et responsive. Travail approfondi sur les animations, les modales personnalisées et l'architecture des composants.",
+        fullDescription: "Conception et réalisation de mon portfolio personnel. L'objectif était de créer une interface immersive typée 'système d'exploitation' tout en garantissant une navigation fluide et responsive.",
         url: "https://papgris.github.io/portfolio-alex/" // Ton lien de déploiement
       },
       {
