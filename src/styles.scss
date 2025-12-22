@@ -1,4 +1,4 @@
-/* src/styles.scss - VERSION CORRIGÉE (Specs & Stack Intégrés) */
+/* src/styles.scss - VERSION FINALE RESPONSIVE */
 
 :root {
   /* --- COULEURS --- */
@@ -18,6 +18,12 @@
   
   --header-height: 80px; 
   --footer-height: 100px; 
+
+  /* --- TYPOGRAPHIE FLUIDE (NOUVEAU) --- */
+  /* S'adapte proportionnellement entre mobile et desktop */
+  --font-main-title: clamp(2.8rem, 8vw, 5.5rem);
+  --font-section-title: clamp(2.2rem, 6vh, 4.5rem);
+  --font-body: clamp(1.4rem, 2vw, 1.8rem);
 }
 
 @media screen and (min-width: 992px) {
@@ -40,6 +46,11 @@
   --dot-inactive: rgba(255, 255, 255, 0.3);
 }
 
+/* --- POINTS DE RUPTURE SASS --- */
+$mobile-large: 481px;  /* iPhone Pro Max, Pixel XL */
+$tablet: 768px;        /* iPad */
+$desktop: 992px;
+
 * { box-sizing: border-box; }
 
 html, body {
@@ -61,7 +72,6 @@ body {
     background-attachment: fixed;
   }
 
-  /* Optionnel : Si tu veux que la grille soit plus visible en mode Dark */
   [data-theme="dark"] body {
     background-image: 
       linear-gradient(rgba(255, 183, 77, 0.1) 1px, transparent 1px),
@@ -81,7 +91,6 @@ body {
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   
-  /* AJOUT : --section-specs et --section-stack */
   timeline-scope: --section-hero, --section-about, --section-services, --section-specs, --section-stack, --section-portfolio, --section-contact;
 }
 
@@ -94,7 +103,6 @@ body {
   pointer-events: none; 
 }
 
-/* Timeline IDs : Remplacement de #skills par #specs et #stack */
 #hero { view-timeline: --section-hero block; }
 #about { view-timeline: --section-about block; }
 #services { view-timeline: --section-services block; }
@@ -117,14 +125,15 @@ body {
   pointer-events: none;
 }
 
-@media screen and (min-width: 992px) {
+/* iPad / iPhone Pro Max Portrait */
+@media screen and (min-width: #{$mobile-large}) {
     .sticky-wrapper { 
-        padding: 0; 
+        padding: 0;
         align-items: center; 
     } 
 }
 
-/* 5. LA FENÊTRE */
+/* 5. LA FENÊTRE (Optimisée Intermédiaire) */
 .window-card {
   pointer-events: auto;
   width: 100%; 
@@ -137,16 +146,22 @@ body {
   overflow: hidden; 
   display: flex; flex-direction: column; justify-content: center; 
   padding: 1.5rem;
-}
 
-@media screen and (min-width: 992px) {
-  .window-card {
+  /* iPhone Pro Max & Tablettes */
+  @media screen and (min-width: #{$mobile-large}) {
+    width: 92%;
+    height: 90%;
+    padding: 2.5rem;
+    border-radius: 20px;
+  }
+
+  /* Desktop */
+  @media screen and (min-width: #{$desktop}) {
     width: 80%; 
     max-width: 1100px; 
     height: 85%; 
     max-height: 800px;
     padding: 3rem; 
-    border-radius: 20px;
   }
 }
 
@@ -158,7 +173,6 @@ body {
   100% { opacity: 0; transform: scale(1.05); }
 }
 
-/* Liaisons Animation Wrapper : Mise à jour avec les nouveaux IDs */
 #hero .sticky-wrapper      { animation-timeline: --section-hero; }
 #about .sticky-wrapper     { animation-timeline: --section-about; }
 #services .sticky-wrapper  { animation-timeline: --section-services; }
@@ -178,13 +192,18 @@ body {
     background: rgba(var(--nav-bg-rgb, 128,128,128), 0.2);
     border-radius: 20px;
 }
+
 .dot-link {
     display: block; width: 12px; height: 12px; 
     border-radius: 50%; background-color: var(--dot-inactive);
     transition: all 0.2s; cursor: pointer;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: #{$mobile-large}) {
+    .nav-dots { right: 15px; gap: 18px; }
+}
+
+@media screen and (min-width: #{$desktop}) {
     .nav-dots { 
         right: 50px; 
         gap: 25px;   
@@ -196,7 +215,6 @@ body {
     }
 }
 
-/* Animation Dots : Mise à jour avec les nouveaux IDs */
 .dot-hero      { animation: dot-active linear both; animation-timeline: --section-hero; }
 .dot-about     { animation: dot-active linear both; animation-timeline: --section-about; }
 .dot-services  { animation: dot-active linear both; animation-timeline: --section-services; }

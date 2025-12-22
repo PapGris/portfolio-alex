@@ -14,9 +14,10 @@
     padding: 1.5rem;
     overflow: hidden; 
 
+    /* RESTAURATION DESKTOP */
     @media screen and (min-width: 992px) {
-        padding: 1.5rem 2rem; /* Réduit le padding haut pour remonter le titre */
-        justify-content: flex-start; /* Aligne vers le haut sur Desktop */
+        padding: 1.5rem 2rem;
+        justify-content: flex-start;
     }
 }
 
@@ -26,19 +27,27 @@
     margin-bottom: 2vh;
     flex: 0 0 auto;
 
+    @media screen and (min-width: 430px) { margin-bottom: 3vh; }
+
     @media screen and (min-width: 992px) {
-        margin-top: 2vh; /* Petit ajustement pour ne pas coller le bord */
+        margin-top: 2vh; 
         margin-bottom: 4vh; 
     }
 
     .section-title {
-        font-family: "Protest Revolution", sans-serif;
-        font-size: clamp(2.2rem, 5vh, 3rem);
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: 2.2rem;
         color: var(--text-main);
         margin: 0;
 
+        @media screen and (min-width: 430px) { font-size: 3rem; }
+        @media screen and (min-width: 768px) { font-size: 4.2rem; }
+        
+        /* TAILLE DESKTOP RESTAURÉE */
         @media screen and (min-width: 992px) {
-            font-size: 5rem; /* Titre encore plus grand sur Desktop */
+            font-size: 5rem;
         }
 
         :host-context([data-theme="dark"]) & {
@@ -47,7 +56,7 @@
     }
 }
 
-/* --- LE HUB --- */
+/* --- LE HUB (C'est ici que ça buggait) --- */
 .social-hub {
     flex: 1;
     display: flex;
@@ -58,9 +67,10 @@
     margin: 0 auto;
     justify-content: space-evenly;
 
+    /* RE-FIX DESKTOP */
     @media screen and (min-width: 992px) {
-        flex-direction: row;
-        align-items: flex-start; /* Aligne les blocs vers le haut du hub */
+        flex-direction: row; /* On remet les groupes côte à côte */
+        align-items: flex-start;
         justify-content: center;
         gap: 8rem;
         flex: 0 1 auto;
@@ -72,11 +82,11 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1vh;
+    gap: 1.5vh;
 
     @media screen and (min-width: 992px) {
         max-width: 480px; 
-        gap: 3rem;
+        gap: 3rem; /* Espacement large restauré */
     }
 }
 
@@ -84,27 +94,27 @@
 .group-intro {
     .group-label {
         font-family: "Protest Revolution", sans-serif;
-        font-size: clamp(1.4rem, 2.5vh, 1.8rem);
+        font-size: 1.4rem;
         color: var(--text-accent);
         margin-bottom: 0.3rem;
         text-transform: uppercase;
 
-        @media screen and (min-width: 992px) {
-            font-size: 2.2rem; /* Label plus gros */
-        }
+        @media screen and (min-width: 430px) { font-size: 1.7rem; }
+        @media screen and (min-width: 768px) { font-size: 2.2rem; }
+        @media screen and (min-width: 992px) { font-size: 2.2rem; }
     }
     
     .tagline {
-        font-size: clamp(0.9rem, 1.8vh, 1.3rem);
-        line-height: 1.3;
+        font-family: "Poppins", sans-serif;
+        font-size: 1.1rem;
+        line-height: 1.4;
         font-weight: 500;
         opacity: 0.95;
         color: var(--text-main);
 
-        @media screen and (min-width: 992px) {
-            font-size: 1.8rem; /* Tagline plus imposante */
-            line-height: 1.4;
-        }
+        @media screen and (min-width: 430px) { font-size: 1.35rem; }
+        @media screen and (min-width: 768px) { font-size: 1.8rem; }
+        @media screen and (min-width: 992px) { font-size: 1.8rem; }
     }
 }
 
@@ -121,7 +131,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
+    padding: 1.2rem;
     background: rgba(var(--nav-bg-rgb, 128, 128, 128), 0.05);
     border: 1.5px solid var(--text-main);
     border-radius: 15px;
@@ -129,18 +139,26 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     .icon-box {
-        width: 30px;
-        height: 30px;
+        width: 35px;
+        height: 35px;
         margin-bottom: 0.5rem;
         flex-shrink: 0;
         svg { width: 100%; height: 100%; fill: currentColor; }
+
+        @media screen and (min-width: 430px) { width: 45px; height: 45px; }
+        @media screen and (min-width: 768px) { width: 60px; height: 60px; }
     }
     
     &.linkedin .icon-box { color: #0077b5; }
     &.github .icon-box { color: var(--text-main); }
 
-    strong { font-size: 0.9rem; }
+    strong { 
+        font-size: 1rem; 
+        @media screen and (min-width: 430px) { font-size: 1.2rem; }
+        @media screen and (min-width: 768px) { font-size: 1.6rem; }
+    }
 
+    /* DESKTOP RESTAURÉ */
     @media screen and (min-width: 992px) {
         padding: 3rem 1.5rem; 
         min-height: 180px; 
@@ -152,7 +170,7 @@
             margin-bottom: 1.5rem; 
         }
         
-        strong { font-size: 1.6rem; } /* Texte bouton plus gros */
+        strong { font-size: 1.6rem; }
     }
 
     &:hover {
@@ -168,8 +186,14 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
 
-    @media screen and (min-width: 992px) {
-        gap: 2rem;
+    @media screen and (min-width: 430px) { max-width: 400px; margin: 0 auto; }
+    @media screen and (min-width: 768px) { max-width: 550px; gap: 2rem; }
+    
+    /* DESKTOP */
+    @media screen and (min-width: 992px) { 
+        gap: 2rem; 
+        max-width: 100%; 
+        margin: 0;
     }
 }
 
@@ -184,10 +208,12 @@
     color: var(--text-main);
     transition: all 0.3s ease;
 
-    svg { width: 40%; height: 40%; fill: currentColor; }
+    svg { width: 45%; height: 45%; fill: currentColor; }
+
+    @media screen and (min-width: 768px) { border-radius: 20px; border-width: 2px; }
 
     @media screen and (min-width: 992px) {
-        max-width: 140px; /* Mini cards plus grandes */
+        max-width: 140px;
         width: 100%;
         border-radius: 20px;
     }

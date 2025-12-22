@@ -1,4 +1,5 @@
-/* specializations.scss */
+/* src/app/components/specializations/specializations.scss */
+
 :host {
     display: block;
     width: 100%;
@@ -10,23 +11,32 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center; // Centre verticalement dans la carte
-    padding: 1rem;
+    justify-content: center; 
+    padding: 1.2rem;
+    overflow: hidden;
 
-    @media screen and (min-width: 992px) {
-        padding: 2rem;
-    }
+    @media screen and (min-width: 430px) { padding: 1.5rem; }
+    @media screen and (min-width: 768px) { padding: 2.5rem; }
 }
 
 .section-header {
     text-align: center;
-    margin-bottom: 3vh;
+    margin-bottom: 2vh;
+
+    @media screen and (min-width: 430px) { margin-bottom: 3vh; }
 
     .section-title {
-        font-family: "Protest Revolution", sans-serif;
-        font-size: clamp(2.2rem, 4vh, 3.5rem);
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: 2.2rem;
         color: var(--text-main);
         margin: 0;
+
+        @media screen and (min-width: 430px) { font-size: 2.8rem; }
+        @media screen and (min-width: 768px) { font-size: 4rem; }
+        /* DESKTOP UNIQUEMENT : On dose la taille pour ne pas saturer la hauteur */
+        @media screen and (min-width: 992px) { font-size: 4.5rem; } 
 
         :host-context([data-theme="dark"]) & {
             color: var(--text-accent);
@@ -37,47 +47,57 @@
 .list-unstyled {
     display: flex;
     flex-direction: column;
-    gap: 1.5vh; // Espace entre les domaines
-    max-width: 700px;
+    gap: 1.2vh; 
+    max-width: 100%;
     margin: 0 auto;
     width: 100%;
+
+    @media screen and (min-width: 430px) { gap: 1.5vh; max-width: 550px; }
+    @media screen and (min-width: 768px) { gap: 2vh; max-width: 750px; }
+    @media screen and (min-width: 992px) { gap: 2rem; max-width: 850px; }
 
     li {
         background: rgba(var(--nav-bg-rgb, 128, 128, 128), 0.05);
         border-left: 4px solid var(--text-accent);
-        padding: 0.9rem 1.2rem;
+        padding: 0.8rem 1rem;
         border-radius: 0 10px 10px 0;
         transition: transform 0.3s ease;
+
+        @media screen and (min-width: 430px) { padding: 1.2rem 1.5rem; }
+        @media screen and (min-width: 768px) { padding: 1.8rem 2.2rem; border-left-width: 6px; }
+        /* DESKTOP : Padding ajusté */
+        @media screen and (min-width: 992px) { padding: 1.4rem 2rem; }
 
         h4 {
             font-family: "Poppins", sans-serif;
             font-weight: 700;
-            font-size: clamp(1.2rem, 2vh, 1.6rem);
-            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+            margin-bottom: 0.3rem;
             color: var(--text-main);
+
+            @media screen and (min-width: 430px) { font-size: 1.5rem; }
+            @media screen and (min-width: 768px) { font-size: 2.2rem; margin-bottom: 0.6rem; }
+            /* DESKTOP */
+            @media screen and (min-width: 992px) { font-size: 1.8rem; margin-bottom: 0.4rem; }
         }
 
         p {
             font-family: "Poppins", sans-serif;
-            font-size: clamp(0.9rem, 1.5vh, 1.1rem);
-            line-height: 1.5;
+            font-size: 1.15rem; 
+            line-height: 1.4;
             color: var(--text-main);
             opacity: 0.9;
             margin: 0;
+
+            @media screen and (min-width: 430px) { font-size: 1.4rem; }
+            @media screen and (min-width: 768px) { font-size: 1.8rem; line-height: 1.5; }
+            /* DESKTOP */
+            @media screen and (min-width: 992px) { font-size: 1.5rem; }
         }
 
         &:hover {
-            transform: translateX(5px);
-            background: rgba(var(--text-accent-rgb), 0.08);
-        }
-    }
-
-    @media screen and (min-width: 992px) {
-        gap: 2.5rem;
-        li {
-            padding: 1.5rem 2rem;
-            h4 { font-size: 2.2rem; }
-            p { font-size: 1.5rem; }
+            transform: translateX(8px);
+            background: rgba(var(--text-accent-rgb, 202, 130, 21), 0.08);
         }
     }
 }

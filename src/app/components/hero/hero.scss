@@ -1,4 +1,4 @@
-/* hero.scss - IMAGE RECENTRÉE */
+/* src/app/components/hero/hero.scss */
 
 .hero-wrapper {
     width: 100%;
@@ -17,8 +17,19 @@
     justify-content: center; 
     width: 100%;
     height: 100%; 
-    gap: 2vh; 
+    gap: 2vh;
 
+    /* iPhone Pro Max (Dès 430px) */
+    @media screen and (min-width: 430px) {
+        gap: 3.5vh; 
+    }
+
+    /* TABLETTE (Dès 768px) */
+    @media screen and (min-width: 768px) {
+        gap: 6vh;
+    }
+
+    /* DESKTOP */
     @media screen and (min-width: 992px) {
         flex-direction: row;
         justify-content: space-between;
@@ -32,96 +43,136 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 0 1 auto; 
-    max-height: 40%; 
     width: 100%;
     
     @media screen and (min-width: 992px) {
         order: 2;
-        width: 40%;
-        max-height: none;
-        /* CHANGEMENT ICI : Passage de flex-end à center */
-        justify-content: center; 
+        width: 42%;
     }
 }
 
 .hero__avatar img {
-    height: 22vh; 
-    width: 22vh;
-    max-width: 220px; 
-    max-height: 220px;
-    min-width: 120px; 
-    min-height: 120px;
+    /* Mobile Standard - Boosté à 180px */
+    height: 180px; 
+    width: 180px;
     object-fit: cover;
     border-radius: 50%;
-    box-shadow: 0 5px 15px var(--shadow-color);
+    box-shadow: 0 5px 20px var(--shadow-color);
     border: 3px solid var(--text-accent);
 
+    /* iPhone 14 Pro Max - 260px */
+    @media screen and (min-width: 430px) {
+        height: 260px; 
+        width: 260px;
+    }
+
+    /* TABLETTE */
+    @media screen and (min-width: 768px) {
+        height: 320px; 
+        width: 320px;
+        border-width: 5px;
+    }
+
+    /* Desktop */
     @media screen and (min-width: 992px) {
-        height: 350px; 
-        width: 350px;
-        max-width: none; 
-        max-height: none;
+        height: 360px; 
+        width: 360px;
     }
 }
 
-/* --- TEXTE (Gauche) --- */
+/* --- TEXTE --- */
 .hero__item.left {
     order: 2;
     text-align: center;
-    flex: 0 1 auto; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     width: 100%;
 
     @media screen and (min-width: 992px) {
         order: 1;
         width: 55%;
-        align-items: flex-start;
         text-align: left;
     }
 }
 
 .subtitle {
+    display: block; /* Nécessaire pour appliquer les marges verticales correctement */
     font-family: "Poppins", sans-serif;
     text-transform: uppercase;
-    font-size: clamp(0.8rem, 1.8vh, 1.2rem); 
+    font-size: 1rem;
     letter-spacing: 2px;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-accent); 
-    margin-bottom: 0.5rem;
+    margin-bottom: 0; /* On gère l'espace via le h1 ci-dessous */
+
+    @media screen and (min-width: 430px) { font-size: 1.3rem; }
+    @media screen and (min-width: 768px) { font-size: 1.7rem; letter-spacing: 3px; }
+    @media screen and (min-width: 992px) { font-size: 1.8rem; }
 }
 
 .title {
-    font-family: "Protest Revolution", sans-serif;
-    font-size: clamp(2rem, 5vh, 4rem); 
-    margin: 0 0 1vh 0;
+    font-family: 'Courier New', Courier, monospace; 
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    font-size: 2.8rem;
     line-height: 1.1;
     color: var(--text-main);
+    
+    /* --- L'ESPACE SE JOUE ICI --- */
+    margin: 3.5rem 0 1.5vh 0; 
+
+    @media screen and (min-width: 430px) { 
+        font-size: 4rem; 
+        margin-top: 5rem; /* Espace iPhone Pro Max */
+    }
+
+    @media screen and (min-width: 768px) { 
+        font-size: 5.5rem; 
+        letter-spacing: -2px; 
+        margin-top: 6.5rem; /* Espace Tablette */
+    }
+
+    @media screen and (min-width: 992px) { 
+        font-size: 6.5rem; 
+        margin-top: 3rem; /* Rééquilibré pour Desktop */
+    }
 }
 
 .description {
     font-family: "Poppins", sans-serif;
-    font-size: clamp(1rem, 1.6vh, 1.4rem);
-    line-height: 1.4;
-    opacity: 0.9;
-    display: -webkit-box;
-    -webkit-line-clamp: 4; 
-    line-clamp: 4; 
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    font-size: 1.45rem;
+    line-height: 1.6;
+    opacity: 0.95;
+    max-width: 310px;
+    margin: 0 auto;
+
+    @media screen and (min-width: 430px) {
+        font-size: 1.75rem; 
+        max-width: 480px;
+    }
+
+    @media screen and (min-width: 768px) {
+        font-size: 2.3rem;
+        max-width: 620px;
+    }
 
     @media screen and (min-width: 992px) {
         text-align: left;
-        -webkit-line-clamp: unset;
-        line-clamp: unset;
-        font-size: 2rem;
+        margin: 0;
+        max-width: 680px;
+        font-size: 2.3rem;
     }
 }
 
 /* --- ANIMATIONS --- */
 .slide-in-left { animation: slideInleft 0.8s ease-out forwards; }
 .slide-in-right { animation: slideInright 0.8s ease-out forwards; }
-@keyframes slideInleft { from { transform: translateX(-30px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-@keyframes slideInright { from { transform: translateX(30px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+@keyframes slideInleft { 
+    from { transform: translateX(-20px); opacity: 0; } 
+    to { transform: translateX(0); opacity: 1; } 
+}
+
+@keyframes slideInright { 
+    from { transform: translateX(20px); opacity: 0; } 
+    to { transform: translateX(0); opacity: 1; } 
+}

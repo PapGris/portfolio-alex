@@ -17,12 +17,21 @@
 
 .section-header {
     text-align: center;
-    margin-bottom: 3vh;
+    margin-bottom: 2vh;
+
     .stack-title {
-        font-family: "Protest Revolution", sans-serif;
-        font-size: clamp(2rem, 4vh, 3.5rem);
+        /* Style Dev Monospace */
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: 2.2rem;
         color: var(--text-main);
         margin: 0;
+
+        /* iPhone 14 Pro Max */
+        @media screen and (min-width: 430px) { font-size: 2.8rem; }
+        /* Tablettes - Légèrement réduit pour l'élégance */
+        @media screen and (min-width: 768px) { font-size: 3.6rem; }
 
         :host-context([data-theme="dark"]) & {
             color: var(--text-accent);
@@ -36,8 +45,26 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5vh;
     width: 100%;
-    max-width: 320px; /* Taille maîtrisée sur mobile */
+    max-width: 320px; 
     margin: 0 auto;
+
+    /* iPhone 14 Pro Max */
+    @media screen and (min-width: 430px) {
+        max-width: 420px;
+        gap: 2vh;
+    }
+
+    /* Tablettes - Taille de grille ajustée (réduite de 650px à 560px) */
+    @media screen and (min-width: 768px) {
+        max-width: 560px; 
+        gap: 2rem;
+    }
+
+    /* Desktop (Inchangé comme demandé) */
+    @media screen and (min-width: 992px) {
+        max-width: 450px; 
+        gap: 2.5rem;
+    }
 }
 
 .skill-icon-card {
@@ -49,15 +76,21 @@
     background: rgba(var(--nav-bg-rgb, 128, 128, 128), 0.05);
     border: 1px solid var(--text-main);
     border-radius: 12px;
-    padding: 1rem;
+    padding: 0.8rem;
     color: var(--text-main);
     transition: all 0.3s ease;
 
+    @media screen and (min-width: 430px) { padding: 1.2rem; }
+    /* Tablettes - Padding réduit (de 2rem à 1.6rem) */
+    @media screen and (min-width: 768px) { padding: 1.6rem; border-radius: 16px; }
+
     .icon-box {
-        width: 40%;
-        height: 40%;
+        width: 45%;
+        height: 45%;
         margin-bottom: 0.5rem;
         svg { width: 100%; height: 100%; fill: currentColor; }
+
+        @media screen and (min-width: 768px) { margin-bottom: 1rem; }
     }
 
     span {
@@ -65,27 +98,18 @@
         font-weight: 600;
         font-size: 0.8rem;
         text-align: center;
+
+        @media screen and (min-width: 430px) { font-size: 1.1rem; }
+        /* Tablettes - Texte réduit (de 1.6rem à 1.3rem) */
+        @media screen and (min-width: 768px) { font-size: 1.3rem; }
+        @media screen and (min-width: 992px) { font-size: 1.2rem; }
     }
 }
 
-/* --- MEDIA QUERY DESKTOP --- */
+/* --- MEDIA QUERY DESKTOP (Inchangé) --- */
 @media screen and (min-width: 992px) {
-    .skills-grid {
-        /* On garde le 3x3 mais on limite la largeur totale */
-        /* pour que la hauteur ne dépasse jamais du composant */
-        max-width: 450px; 
-        gap: 2.5rem;
-    }
-
     .skill-icon-card {
         padding: 1.5rem;
-        
-        /* On peut se permettre d'agrandir un peu le texte sur PC */
-        span {
-            font-size: 1.2rem;
-        }
-
-        /* Effet hover plus marqué sur PC */
         &:hover {
             transform: translateY(-5px);
             border-color: var(--text-accent);
@@ -95,7 +119,7 @@
     }
 }
 
-/* Sécurité pour les petits écrans (iPhone SE, etc.) */
+/* Sécurité petits écrans (Inchangé) */
 @media screen and (max-height: 700px) and (max-width: 600px) {
     .skills-grid {
         max-width: 260px;

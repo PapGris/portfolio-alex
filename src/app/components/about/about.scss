@@ -4,7 +4,7 @@
     display: block;
     width: 100%;
     height: 100%;
-    /* L'ASTUCE : On annule le padding de 1.5rem du parent (.window-card) */
+    /* On garde l'annulation du padding parent */
     margin: -1.5rem; 
     width: calc(100% + 3rem);
     height: calc(100% + 3rem);
@@ -17,8 +17,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* On gère notre propre padding plus fin ici */
-    padding: 1rem; 
+    /* Padding réduit en haut pour laisser l'image monter */
+    padding: 0.5rem 1.2rem 1.2rem 1.2rem; 
     overflow: hidden; 
 }
 
@@ -26,25 +26,36 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
-    gap: 0.5vh; 
+    gap: 1vh; 
     
+    @media screen and (min-width: 430px) {
+        gap: 2vh;
+        padding: 0 1.5rem;
+    }
+
+    @media screen and (min-width: 768px) {
+        gap: 4vh;
+        padding: 0 3rem;
+    }
+
     @media screen and (min-width: 992px) {
         flex-direction: row;
-        justify-content: center; 
         gap: 5rem; 
+        padding: 0;
     }
 }
 
-/* --- IMAGE : COLLÉE EN HAUT --- */
+/* --- IMAGE : OPTIMISATION DE L'ESPACE SUPÉRIEUR --- */
 .grid__item.image-container {
     display: flex;
     justify-content: center;
     flex: 0 0 auto; 
     width: 100%;
-    /* On la remonte pour qu'elle touche presque le bord de la carte */
-    margin-top: -0.5vh; 
+    /* On force la remontée de l'image pour utiliser la marge haute */
+    margin-top: -1vh; 
 
     @media screen and (min-width: 992px) {
         width: 35%;
@@ -58,14 +69,25 @@
         box-shadow: 0 4px 12px var(--shadow-color);
         object-fit: cover; 
         
-        /* MOBILE : Elle peut maintenant être plus grande car on a récupéré les 15px de padding */
-        max-height: 160px; 
+        /* Mobile Standard (S8) - Augmenté à 170px */
+        max-height: 170px; 
         width: auto;
+
+        /* iPhone 14 Pro Max - Augmenté à 220px */
+        @media screen and (min-width: 430px) {
+            max-height: 220px; 
+        }
+
+        /* Tablette - Augmenté */
+        @media screen and (min-width: 768px) {
+            max-height: 340px;
+            border-width: 3px;
+        }
 
         @media screen and (min-width: 992px) {
             max-height: 400px;
-            border-width: 4px;
             border-radius: 20px;
+            border-width: 4px;
         }
     }
 }
@@ -78,11 +100,10 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    /* On utilise l'espace gagné pour le texte */
     padding: 0 0.5rem; 
 
     @media screen and (min-width: 992px) {
-        width: 50%;
+        width: 55%;
         text-align: left;
         align-items: flex-start;
         padding: 0;
@@ -90,19 +111,30 @@
 }
 
 .section-title {
-    font-family: "Protest Revolution", sans-serif;
-    font-size: clamp(1.8rem, 3.5vh, 2.5rem);
-    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    text-transform: uppercase;
     color: var(--text-main);
+    margin: 0;
+    font-size: 2rem; 
+
+    @media screen and (min-width: 430px) { font-size: 2.8rem; }
+    @media screen and (min-width: 768px) { font-size: 4rem; }
+    @media screen and (min-width: 992px) { font-size: 5rem; }
 }
 
 .subtitle {
     font-family: "Poppins", sans-serif;
-    font-size: clamp(0.8rem, 1.8vh, 1rem);
     text-transform: uppercase;
     color: var(--text-accent);
-    margin-bottom: 0.5vh;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    /* On resserre pour gagner de la place verticale */
+    margin: 0.2rem 0 0.5vh 0;
+
+    @media screen and (min-width: 430px) { font-size: 1.1rem; margin: 0.4rem 0 1vh 0; }
+    @media screen and (min-width: 768px) { font-size: 1.4rem; }
 }
 
 .content {
@@ -115,19 +147,27 @@
         font-family: "Poppins", sans-serif;
         color: var(--text-main);
         line-height: 1.4;
-        /* On peut se permettre un texte un peu plus grand ici */
-        font-size: clamp(1.05rem, 2vh, 1.2rem); 
-        margin: 0;
         opacity: 0.95;
+        margin: 0;
+        font-size: 1.2rem; 
         
-        display: block;
-        overflow: visible;
+        @media screen and (min-width: 430px) { 
+            font-size: 1.45rem; 
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        @media screen and (min-width: 768px) { 
+            font-size: 1.9rem; 
+            max-width: 650px;
+        }
         
         @media screen and (min-width: 992px) { 
             text-align: justify;
-            font-size: 1.5rem; 
-            line-height: 1.6;
-            margin-top: 1vh;
+            font-size: 1.7rem; 
+            line-height: 1.5;
+            margin: 0.5vh 0 0 0;
+            max-width: none;
         }
     }
 }

@@ -13,8 +13,11 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding: 0.5rem; /* Réglage mobile conservé */
+    padding: 0.5rem; 
     overflow: hidden; 
+
+    /* iPhone 14 Pro Max & Tablette */
+    @media screen and (min-width: 430px) { padding: 1.5rem; }
 
     @media screen and (min-width: 992px) {
         padding: 1.5rem;
@@ -27,21 +30,30 @@
     text-align: center;
     flex: 0 0 auto;
     margin-bottom: 0.5vh;
+    @media screen and (min-width: 430px) { margin-bottom: 2vh; }
     @media screen and (min-width: 992px) { margin-bottom: 1.5vh; }
 }
 
 .section-title {
-    font-family: "Protest Revolution", sans-serif;
-    font-size: clamp(1.8rem, 3.5vh, 2.2rem);
+    /* Style Dev cohérent avec les autres composants */
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 2rem;
     margin: 0;
-    color: var(--text-main);
-    @media screen and (min-width: 992px) { font-size: 3.8rem; }
+    color: var(--text-accent);
+
+    @media screen and (min-width: 430px) { font-size: 2.8rem; }
+    @media screen and (min-width: 768px) { font-size: 3.5rem; }
+    @media screen and (min-width: 992px) { font-size: 4.2rem; }
 }
 
 /* --- FILTRES --- */
 .filters-container {
     margin-bottom: 1.5vh;
     flex: 0 0 auto;
+    @media screen and (min-width: 430px) { margin-bottom: 3vh; }
+
     .portfolio-filters {
         list-style: none;
         display: flex;
@@ -55,9 +67,13 @@
             padding: 0.8rem 2rem; 
             border-radius: 50px;
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             text-transform: uppercase;
+            transition: all 0.3s ease;
+
+            @media screen and (min-width: 430px) { font-size: 1.3rem; padding: 1rem 2.5rem; }
+            @media screen and (min-width: 768px) { font-size: 1.6rem; padding: 1.2rem 3.5rem; }
             @media screen and (min-width: 992px) {
                 padding: 0.8rem 2.5rem;
                 font-size: 1.4rem;
@@ -72,14 +88,16 @@
     width: 100%;
     flex: 1 1 auto;
     display: grid;
-    /* Mobile : Strictement inchangé (2 colonnes) */
     grid-template-columns: repeat(2, 1fr); 
     grid-auto-rows: min-content;
     gap: 0.8vh;
-    overflow: hidden; /* Interdiction de scroller */
+    overflow: hidden; 
+
+    /* iPhone 14 Pro Max & Tablette */
+    @media screen and (min-width: 430px) { gap: 1.5vh; max-width: 600px; }
+    @media screen and (min-width: 768px) { gap: 2vh; max-width: 850px; }
 
     @media screen and (min-width: 992px) {
-        /* Desktop : On force 4 colonnes pour que rien ne soit coupé */
         grid-template-columns: repeat(4, 1fr); 
         max-width: 1400px;
         gap: 1.5rem;
@@ -97,9 +115,12 @@
     flex-direction: column;
     max-height: 20vh; 
 
+    @media screen and (min-width: 430px) { max-height: 25vh; border-radius: 12px; }
+    @media screen and (min-width: 768px) { max-height: 28vh; }
+
     @media screen and (min-width: 992px) {
         border-radius: 12px;
-        max-height: 32vh; /* Réduit pour laisser de la place au 4ème projet */
+        max-height: 32vh; 
         transition: transform 0.3s ease;
         &:hover {
             transform: translateY(-5px);
@@ -110,9 +131,13 @@
 
 .card-media {
     position: relative;
-    height: 10vh; /* Mobile inchangé */
+    height: 10vh; 
     cursor: pointer;
-    @media screen and (min-width: 992px) { height: 160px; } /* Image plus petite pour tout caser */
+    
+    @media screen and (min-width: 430px) { height: 14vh; }
+    @media screen and (min-width: 768px) { height: 18vh; }
+    @media screen and (min-width: 992px) { height: 160px; }
+
     img { width: 100%; height: 100%; object-fit: cover; }
     .overlay {
         position: absolute;
@@ -135,20 +160,28 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    @media screen and (min-width: 430px) { padding: 0.8rem; }
+
     .category {
         display: block;
         font-size: 0.65rem;
         color: var(--text-accent);
         text-transform: uppercase;
-        @media screen and (min-width: 992px) { font-size: 0.8rem; }
+        @media screen and (min-width: 430px) { font-size: 0.8rem; }
+        @media screen and (min-width: 768px) { font-size: 1rem; }
     }
     h3 {
         margin: 0;
-        font-size: 0.8rem;
+        font-size: 0.85rem;
+        font-weight: 700;
         color: var(--text-main);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        
+        @media screen and (min-width: 430px) { font-size: 1.1rem; }
+        @media screen and (min-width: 768px) { font-size: 1.4rem; }
         @media screen and (min-width: 992px) { font-size: 1.2rem; }
     }
 }
