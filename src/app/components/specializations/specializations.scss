@@ -35,8 +35,12 @@
 
         @media screen and (min-width: 430px) { font-size: 2.8rem; }
         @media screen and (min-width: 768px) { font-size: 4rem; }
-        /* DESKTOP UNIQUEMENT : On dose la taille pour ne pas saturer la hauteur */
         @media screen and (min-width: 992px) { font-size: 4.5rem; } 
+
+        /* AJUSTEMENT SPÉCIFIQUE MACBOOK AIR 13" */
+        @media screen and (min-width: 992px) and (max-height: 960px) {
+            font-size: 3.2rem;
+        }
 
         :host-context([data-theme="dark"]) & {
             color: var(--text-accent);
@@ -56,6 +60,11 @@
     @media screen and (min-width: 768px) { gap: 2vh; max-width: 750px; }
     @media screen and (min-width: 992px) { gap: 2rem; max-width: 850px; }
 
+    /* AJUSTEMENT SPÉCIFIQUE MACBOOK AIR 13" */
+    @media screen and (min-width: 992px) and (max-height: 960px) {
+        gap: 1.2rem;
+    }
+
     li {
         background: rgba(var(--nav-bg-rgb, 128, 128, 128), 0.05);
         border-left: 4px solid var(--text-accent);
@@ -65,8 +74,12 @@
 
         @media screen and (min-width: 430px) { padding: 1.2rem 1.5rem; }
         @media screen and (min-width: 768px) { padding: 1.8rem 2.2rem; border-left-width: 6px; }
-        /* DESKTOP : Padding ajusté */
         @media screen and (min-width: 992px) { padding: 1.4rem 2rem; }
+
+        /* AJUSTEMENT SPÉCIFIQUE MACBOOK AIR 13" */
+        @media screen and (min-width: 992px) and (max-height: 960px) {
+            padding: 1rem 1.8rem;
+        }
 
         h4 {
             font-family: "Poppins", sans-serif;
@@ -77,8 +90,13 @@
 
             @media screen and (min-width: 430px) { font-size: 1.5rem; }
             @media screen and (min-width: 768px) { font-size: 2.2rem; margin-bottom: 0.6rem; }
-            /* DESKTOP */
             @media screen and (min-width: 992px) { font-size: 1.8rem; margin-bottom: 0.4rem; }
+            
+            /* AJUSTEMENT SPÉCIFIQUE MACBOOK AIR 13" */
+            @media screen and (min-width: 992px) and (max-height: 960px) {
+                font-size: 1.6rem;
+                margin-bottom: 0.2rem;
+            }
         }
 
         p {
@@ -91,8 +109,12 @@
 
             @media screen and (min-width: 430px) { font-size: 1.4rem; }
             @media screen and (min-width: 768px) { font-size: 1.8rem; line-height: 1.5; }
-            /* DESKTOP */
             @media screen and (min-width: 992px) { font-size: 1.5rem; }
+
+            /* AJUSTEMENT SPÉCIFIQUE MACBOOK AIR 13" */
+            @media screen and (min-width: 992px) and (max-height: 960px) {
+                font-size: 1.35rem;
+            }
         }
 
         &:hover {
